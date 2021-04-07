@@ -17,5 +17,13 @@
 			</bean>
 		</property>
 	</bean>
+	
+	<bean id="userDetailsService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.triplet.service.impl.UserDetailsServiceImpl">
+				<property name="userDAO" ref="UserDAO" />
+			</bean>
+		</property>
+	</bean>
 
 </beans>

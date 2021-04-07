@@ -25,7 +25,7 @@ import com.triplet.utils.ExcelFileUtil;
 import com.triplet.validate.UserValidation;
 
 @PropertySource("classpath:messages.properties")
-@Controller
+@Controller(value="admin-user")
 @RequestMapping("/admin/users")
 public class UserController extends BaseController {
 
@@ -35,8 +35,8 @@ public class UserController extends BaseController {
 	@Value("${msg_error_username_or_email}")
 	private String msg_error_username_or_email;
 
-	@Value("${msg_add_user_success}")
-	private String msg_add_user_success;
+	@Value("${msg_success_add_user}")
+	private String msg_success_add_user;
 
 	@Value("${msg_error_file}")
 	private String msg_error_file;
@@ -73,7 +73,7 @@ public class UserController extends BaseController {
 		}
 		userService.createUser(userInfo.convertToUser());
 		typeCss = "success";
-		message = msg_add_user_success;
+		message = msg_success_add_user;
 		return handleRedirect(redirectAttributes, typeCss, message, "/admin/users");
 	}
 

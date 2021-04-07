@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/* Head takes 3 arguments that are fragments */-->
 
-<head th:replace="views/web/layout/base-layout :: head(~{ :: title}, ~{ :: .custom-link}, ~{ :: .custom-script})">
+<head th:fragment="head(title, links, scripts)">
 
     <!--/*  Title will be replaced by their respective titles in the calling template. */-->
-    <title>Home Page</title>
+    <title th:replace="${title}">Web title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -21,8 +22,10 @@
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
+    <!--/* Per-page placeholder for additional links */-->
+    <th:block th:replace="${links}" />
 
+    <!--/* Default scripts; can be replaced by the calling templates */-->
     <script>
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -33,47 +36,16 @@
         }
     </script>
 
+
 </head>
 
 <body>
     <!--/* Header fragment */-->
-    <header th:replace="views/web/layout/header :: header"></header>
-    <!--/* The value passed from calling template will be inserted in this element */-->
+    <header th:fragment="header" class="text-center">&copy; 2017 Default Header</header>
 
+    <div th:fragment="content(value)" th:insert="${value}"></div>
 
-    <!--Banner home-->
-    <div th:replace="views/web/layout/banner :: banner-home"></div>
-
-    <!-- Begin Page Content -->
-    <div th:insert="views/web/layout/base-layout :: content(~{ :: #contentIndex})">
-        <div id="contentIndex">
-
-            <div class="row no-gutters pb-5">
-                <div class="col-sm-6">
-                    <div class="hovereffect">
-                        <img class="img-fluid" th:src="@{/assets/web/images/a1.jpg}" alt="" style="width:100%">
-                        <div class="overlay">
-                            <h5>women's fashion</h5>
-                            <a class="info" th:href="@{/categories/2/products}">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="hovereffect">
-                        <img class="img-fluid" th:src="@{/assets/web/images/a2.jpg}" alt="" style="width:100%">
-                        <div class="overlay">
-                            <h5>men's fashion</h5>
-                            <a class="info">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!--  Page Content -->
-    <!--/* Footer fragment */-->
-    <footer th:replace="views/web/layout/footer :: footer"></footer>
+    <footer th:fragment="footer" class="text-center">&copy; 2017 Default Footer</footer>
 
     <!-- js -->
     <script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
@@ -145,60 +117,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script th:src="@{/assets/web/js/bootstrap.js}"></script>
 
-    <!--/* Per-page placeholder for additional scripts */-->
-
-    <!-- Product slider Owl-Carousel-JavaScript -->
-    <script class="custom-script" th:src="@{/assets/web/js/owl.carousel.js}"></script>
-    <script class="custom-script">
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            items: 4,
-            loop: false,
-            margin: 10,
-            autoplay: false,
-            autoplayTimeout: 5000,
-            autoplayHoverPause: false,
-            responsive: {
-                320: {
-                    items: 1,
-                },
-                568: {
-                    items: 2,
-                },
-                991: {
-                    items: 3,
-                },
-                1050: {
-                    items: 4
-                }
-            }
-        });
-    </script>
-    <!-- //Product slider Owl-Carousel-JavaScript -->
-    <!-- Banner Responsiveslides -->
-    <script class="custom-script" th:src="@{/assets/web/js/responsiveslides.min.js}"></script>
-    <script class="custom-script">
-        // You can also use "$(window).load(function() {"
-        $(function () {
-            // Slideshow 4
-            $("#slider3").responsiveSlides({
-                auto: false,
-                pager: true,
-                nav: false,
-                speed: 500,
-                namespace: "callbacks",
-                before: function () {
-                    $('.events').append("<li>before event fired.</li>");
-                },
-                after: function () {
-                    $('.events').append("<li>after event fired.</li>");
-                }
-            });
-
-        });
-    </script>
-    <!-- // Banner Responsiveslides -->
-
+    <th:block th:replace="${scripts}" />
 </body>
 
 </html>
