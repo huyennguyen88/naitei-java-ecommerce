@@ -8,4 +8,12 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
 	List<User> loadUsers();
 
+	User findByUsername(String username);
+
+	boolean checkEmailExist(String email);
+
+	boolean checkUsernameExist(String username);
+
+	boolean saveBatch(List<User> users);
+
 }
