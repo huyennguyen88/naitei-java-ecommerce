@@ -1,14 +1,17 @@
 package com.triplet.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,8 +27,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name", nullable = false)
-	private String name;
+	@Column(name = "username", nullable = false)
+	private String username;
+
+	@Column(name = "fullname")
+	private String fullname;
 
 	@Column(name = "email", nullable = false)
 	private String email;
@@ -44,13 +50,9 @@ public class User {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	public enum Role {
-		ADMIN, USER
-	}
-
-	@Column(columnDefinition = "enum('ADMIN',USER)", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private Role role;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "userroles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<Role> roles;
 
 	@Column(name = "create_time", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -74,12 +76,20 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getEmail() {
@@ -118,16 +128,8 @@ public class User {
 		return password;
 	}
 
-	public void setPassword_digest(String password) {
+	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public Date getCreate_time() {
@@ -152,5 +154,13 @@ public class User {
 
 	public void setDelete_time(Date delete_time) {
 		this.delete_time = delete_time;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 }

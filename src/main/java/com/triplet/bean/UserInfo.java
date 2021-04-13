@@ -4,28 +4,38 @@ import com.triplet.model.User;
 
 public class UserInfo {
 
-	private Integer id;
-	private String name;
+	private int id;
+	private String username;
+	private String fullname;
 	private String email;
 	private String password;
 	private String confirmPassword;
 	private String address;
 	private String avatar;
+	private String phone;
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public String getEmail() {
@@ -68,20 +78,37 @@ public class UserInfo {
 		this.avatar = avatar;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public UserInfo() {
 	}
 
-	public UserInfo(String name, String email, String password) {
-		this.name = name;
+	public UserInfo(String fullname, String username, String email, String password, String address, String phone,
+			String avatar) {
+		this.fullname = fullname;
+		this.username = username;
 		this.email = email;
 		this.password = password;
+		this.address = address;
+		this.phone = phone;
+		this.avatar = avatar;
 	}
 
 	public User convertToUser() {
 		User user = new User();
-		user.setName(this.getName());
+		user.setFullname(this.getFullname());
+		user.setUsername(this.getUsername());
 		user.setEmail(this.getEmail());
-		user.setPassword_digest(this.getPassword().trim());
+		user.setPassword(this.getPassword().trim());
+		user.setAddress(this.getAddress());
+		user.setAvatar(this.getAvatar());
+		user.setPhone(this.getPhone());
 		return user;
 	}
 }
