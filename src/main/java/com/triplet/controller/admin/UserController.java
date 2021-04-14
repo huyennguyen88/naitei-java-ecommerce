@@ -16,16 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.triplet.bean.UserInfo;
 import com.triplet.model.User;
 import com.triplet.service.UserService;
-import com.triplet.utils.ExcelFileUtil;
+import com.triplet.utils.ExcelFileUtils;
+import com.triplet.utils.ExcelReportView;
 import com.triplet.validate.UserValidation;
 
 @PropertySource("classpath:messages.properties")
-@Controller(value="admin-user")
+@Controller(value = "admin-user")
 @RequestMapping("/admin/users")
 public class UserController extends BaseController {
 
@@ -81,7 +83,7 @@ public class UserController extends BaseController {
 	public String uploadExcel(@RequestParam("file") MultipartFile file, final RedirectAttributes redirectAttributes) {
 		String typeCss = "error";
 		String message = "Error!! Can't save list of users, maybe username or email existed!";
-		if (!ExcelFileUtil.hasExcelFormat(file)) {
+		if (!ExcelFileUtils.hasExcelFormat(file)) {
 			message = msg_error_file;
 			return handleRedirect(redirectAttributes, typeCss, message, "/admin/users");
 		}
@@ -99,7 +101,7 @@ public class UserController extends BaseController {
 	private boolean ImportExcelFile(MultipartFile file) {
 		List<User> users = new ArrayList<User>();
 		List<UserInfo> listUserInfo = new ArrayList<>();
-		ExcelFileUtil excelFileUtil = new ExcelFileUtil();
+		ExcelFileUtils excelFileUtil = new ExcelFileUtils();
 
 		listUserInfo = excelFileUtil.convertToUserInfos(file);
 		if (listUserInfo == null)
@@ -109,4 +111,11 @@ public class UserController extends BaseController {
 			return false;
 		return userService.saveBatch(users);
 	}
+
+	@GetMapping("/export-excel")
+	public ModelAndView exportExcel() {
+		List<User> users = userService.loadUsers();
+		return new ModelAndView(new ExcelReportView(), "users", users);
+	}
+
 }

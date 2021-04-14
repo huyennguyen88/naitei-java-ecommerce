@@ -52,32 +52,37 @@
 					<div th:insert="views/admin/layout/base-layout :: content(~{ :: #users-list})">
 
 						<div id="users-list">
-							<div>
-								<div>
-									<form method="POST" enctype="multipart/form-data" th:action="@{/admin/users/upload-excel}">
-										<table>
-											<tr>
-												<td>File to upload:</td>
-												<td><input type="file" name="file" /></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td><input type="submit" value="Upload" /></td>
-											</tr>
-										</table>
-									</form>
-								</div>
-							</div>
+
 							<!-- Page Heading -->
 							<div class="d-sm-flex align-items-center justify-content-between mb-4">
 								<h1 class="h3 mb-0 text-gray-800">Manage Users</h1>
-
+								<div>
+									<div>
+										<form method="POST" enctype="multipart/form-data" th:action="@{/admin/users/upload-excel}">
+											<table>
+												<tr>
+													<td>Import Excel:</td>
+													<td><input type="file" name="file" /></td>
+												</tr>
+												<tr>
+													<td></td>
+													<td><input type="submit" value="Upload" /></td>
+												</tr>
+											</table>
+										</form>
+									</div>
+								</div>								
 								<div>
 									<a th:href="@{/admin/users/new}"
 										class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
 										<i class="fas fa-plus fa-sm text-white-50"></i>
 										New User
 									</a>
+									<a th:href="@{/admin/users/export-excel}"
+										class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm">
+										<i class="fas fa-file-download"></i>
+										Export Excel
+									</a>									
 								</div>
 
 							</div>

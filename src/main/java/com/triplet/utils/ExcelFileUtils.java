@@ -20,8 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.triplet.bean.UserInfo;
 import com.triplet.validate.UserValidation;
 
-public class ExcelFileUtil {
-	Logger logger = Logger.getLogger(ExcelFileUtil.class);
+public class ExcelFileUtils {
+	Logger logger = Logger.getLogger(ExcelFileUtils.class);
 
 	public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
