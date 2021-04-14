@@ -26,8 +26,10 @@
 		<property name="additionalDialects">
 			<set>
 				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect" />
+				<bean class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect"/>
 			</set>
 		</property>
+		
 	</bean>
 
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">

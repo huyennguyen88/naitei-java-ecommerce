@@ -6,7 +6,7 @@
 
 body {
     margin: 0;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Nunito', sans-serif;
     background: #fff;
 }
 
@@ -26,7 +26,7 @@ h4,
 h5,
 h6 {
     margin: 0;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 p {
@@ -131,7 +131,7 @@ nav.navbar a {
 }
 
 h1 a.navbar-brand {
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
     color: #64b3f4;
     display: inline-block;
     padding: 0;
@@ -211,7 +211,7 @@ h5.head_agileinfo {
 }
 
 h5.head_agileinfo span {
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
     color: #0076be;
     font-weight: bold;
 }
@@ -277,7 +277,7 @@ h3.agile_btxt span {
     font-size: 3em;
     text-transform: uppercase;
     color: #f0475f;
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
 }
 
 h2.agile_btxt a{
@@ -304,14 +304,14 @@ h2.agile_btxt span {
     font-size: 2em;
     text-transform: uppercase;
     color: #f0475f;
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
 }
 
 h4.head_agileinfo span {
     font-size: 3em;
     text-transform: uppercase;
     color: #fff;
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
 }
 
 h4.w3_bbot {
@@ -334,7 +334,7 @@ h4.bn_right {
 }
 
 h4.bn_right span {
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
     font-size: 2em;
 }
 
@@ -833,7 +833,7 @@ a.thumbnail.active {
 .wthreeitemdownload a {
     padding: 7px 20px;
     background-color: #777;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: 14px;
     color: #FFF;
 }
@@ -1285,7 +1285,7 @@ ul.bottom-links-agile li a {
 }
 
 .modal-title {
-    font-family: 'Elsie Swash Caps', cursive;
+    font-family: 'Dancing Script', cursive;
     font-weight: bold;
     font-size: 2em;
 }
