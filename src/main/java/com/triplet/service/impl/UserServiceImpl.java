@@ -89,7 +89,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			List<Role> roles = new ArrayList<>();
 			roles.add(role);
 			user.setRoles(roles);
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			if(user.getPassword()!=null) {
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+			}
 			getUserDAO().saveOrUpdate(user);
 			return true;
 		} catch (Exception ex) {

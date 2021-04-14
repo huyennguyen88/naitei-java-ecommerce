@@ -33,11 +33,60 @@
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
+	
 	</script>
 
 </head>
 
 <body>
+	<script>
+
+	window.fbAsyncInit = function() {
+	    // FB JavaScript SDK configuration and setup
+	    FB.init({
+	      appId      : '926701404829342', // FB App ID
+	      cookie     : true,  // enable cookies to allow the server to access the session
+	      xfbml      : true,  // parse social plugins on this page
+	      version    : 'v10.0' // use graph api version 2.8
+	    });
+	    
+	};
+
+	function onLoginButton() {
+		  FB.getLoginStatus(function(response) {
+		    console.log('on login button');
+		    console.log(response);
+		    if(response.status === 'connected'){
+		    	loginProcessing();
+		    }
+		  });
+		}
+
+	function loginProcessing(){
+	    console.log('Welcome!  Fetching your information.... ');
+	    FB.api('/me',{locale: 'en_US', fields: 'id,name,email,picture'}, function(response) {
+	      console.log('Successful login for: ' + response.name);
+	 		$.ajax({
+				type : "POST",
+				url : "login-facebook",
+				data : {
+				    id : response.id,
+				    fullname : response.name,
+				    email : response.email,
+				    avatar : response.picture.data.url
+				},
+				timeout : 100000,
+				success : function(response) {
+					window.location = 'welcome';
+				},
+				error : function(e) {
+					console.log("ERROR: ", e);
+				}
+			}); 	    
+	    });
+	}
+	</script>
+	
 	<!--/* Header fragment */-->
 	<header th:replace="views/web/layout/header :: header"></header>
 
@@ -85,7 +134,10 @@
 									</div>
 									<div class="form-group right-w3l">
 										<input type="submit" class="form-control" value="Login">
-									</div>							
+									</div>
+									<div class="form-group text-center">
+										<div class="fb-login-button" onlogin="onLoginButton();" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+									</div>						
 									<div class="d-flex links">
 										Don't have an account? <a th:href="@{/register}" class="ml-2">Sign
 											Up</a>
@@ -97,14 +149,19 @@
 				</div>
 			</div>
 		</div>
-		<!-- signin Modal -->
-	</div>
+		<!-- signin Modal -->	
+	</div>		
+
 	<!--/* Footer fragment */-->
 	<footer th:replace="views/web/layout/footer :: footer"></footer>
 
 	<!-- js -->
 	<script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
+	
 	<!-- //js -->
+	<!-- Load the JS SDK asynchronously -->
+	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous" ></script>
+
 	<!-- smooth dropdown -->
 	<script>
 		$(document).ready(function () {
@@ -171,7 +228,5 @@
 			================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
-
 </body>
-
 </html>

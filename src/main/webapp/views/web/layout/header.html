@@ -43,7 +43,7 @@
 						                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
 						                    aria-expanded="false">
 						                    <i class="fas fa-user-circle"></i>		
-						                    <span sec:authentication="principal.username"></span>
+						                    <span th:text="${#authentication.getPrincipal().getFullname()}"></span>
 						                 </a>
 						                <div class="dropdown-menu" style="width:100%">
 						                    <div class="px-0 container">
