@@ -107,10 +107,10 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw e;
 		}
 	}
-	
-	public List<User> convertToUsers(List<UserInfo> listUserInfo){
+
+	public List<User> convertToUsers(List<UserInfo> listUserInfo) {
 		List<User> users = new ArrayList<User>();
-		for(UserInfo userInfo : listUserInfo ) {
+		for (UserInfo userInfo : listUserInfo) {
 			User user = userInfo.convertToUser();
 
 			Role role = new Role();
@@ -119,11 +119,6 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			List<Role> roles = new ArrayList<>();
 			roles.add(role);
 			user.setRoles(roles);
-			String pass = user.getPassword();
-			logger.info("user pass"+pass);
-			String encodePass = passwordEncoder.encode(pass);
-			logger.info("user password"+encodePass);
-
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			users.add(user);
 		}
