@@ -1,66 +1,198 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>User Info</title>
-</head>
-<body>
-	<h2>User Info Page</h2>
-	<div>
-		<div class="card-header h4">User Information</div>
-		<div th:if="${user!=null}" class="card-body">
-			<div class="row align-items-center">
-				<div class="col-sm-8">
-					<div>
-						<hr>
-						<form th:action="@{/users}" th:object="${user}" method="post">
-							<input type="hidden" th:field="*{id}"> <input
-								type="hidden" th:field="*{role}"> <input type="hidden"
-								th:field="*{create_time}"> <input type="hidden"
-								th:field="*{password_digest}">
-							<div class="form-group">
-								<label>User Name</label> <input th:field="*{username}"
-									type="text" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Full Name</label> <input th:field="*{fullname}"
-									type="text" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Email</label> <input th:field="*{email}" type="email"
-									class="form-control" disabled> <a href="#">Change
-									Email</a>
-							</div>
-							<div class="form-group ">
-								<label>Phone</label> <input th:field="*{phone}" type="number"
-									class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Address</label> <input th:field="*{address}" type="text"
-									class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Password</label> <input value="****" type="text"
-									class="form-control" disabled> <a href="#">Change
-									Password</a>
-							</div>
-							<div class="form-group">
-								<button type="submit" class="btn btn-success">Save</button>
-							</div>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-						</form>
-						<hr>
-					</div>
+<head th:replace="views/web/layout/base-layout :: head(~{ :: title}, ~{ :: .custom-link}, ~{ :: .custom-script})">
+
+	<!--/*  Title will be replaced by their respective titles in the calling template. */-->
+	<title>User Detail</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+
+	<!--/* Default links; can be replaced by the calling templates */-->
+	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/style.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/fontawesome-all.min.css}" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+
+
+	<!--/* Per-page placeholder for additional links */-->
+	<link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
+
+	<script class="custom-script">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+</head>
+
+<body>
+	<!--/* Header fragment */-->
+	<header th:replace="views/web/layout/header :: header"></header>
+
+	<div th:insert="views/web/layout/base-layout :: content(~{ :: #userContent})">
+		<!-- user content -->
+		<div id="userContent">
+			<div class="container">
+		<div th:if="${msg != null}" class="alert alert-dismissible "
+			th:classappend="${css == 'error' ? 'alert-danger' : 'alert-success'}" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<strong><span th:text="${msg}"></span></strong>
+		</div>
+		<div class="row">
+
+			<div class="col-sm-3">
+				<div th:replace="views/web/user/sidebar :: sidebar"></div>
+			</div>
+			<div class="card w-75">
+				<div class="card-header h4">
+					User Information
 				</div>
-				<div class="col-sm-4">
-					<div class="text-center">
-						<img th:src="@{'/assets/images/'+${user.avatar}}"
-							class="avatar img-circle img-thumbnail" alt="avatar">
+				<div class="card-body">
+					<div class="row align-items-center">
+						<div class="col-sm-8">
+							<div>
+								<hr>
+								<form th:method="post" th:action="@{/users/{id}/update(id=${user.id})}" th:object="${user}">
+									<input type="hidden" th:field="*{id}" >
+									<input type="hidden" th:field="*{roles}">
+									<input type="hidden" th:field="*{create_time}">		
+									<input type="hidden" th:field="*{avatar}">						
+									<div class="form-group">
+										<label>Fullname</label>
+										<input th:field="*{fullname}" type="text" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Username</label>
+										<input th:field="*{username}" type="text" class="form-control" disabled>
+									</div>									
+									<div class="form-group">
+										<label>Email</label>
+										<input th:field="*{email}" type="email" class="form-control" disabled>
+									</div>
+									<div class="form-group ">
+										<label>Phone</label>
+										<input th:field="*{phone}" type="number" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Address</label>
+										<input th:field="*{address}" type="text" class="form-control">
+									</div>
+									<div class="form-group">
+										<label>Password</label>
+										<input th:field="*{password}" type="password" class="form-control" disabled >
+										<a href="#">Change Password</a>
+									</div>
+									<div class="form-group  text-center">
+										<input type="submit" class="btn btn-success" value="Save"/>
+									</div>
+								</form>
+								<hr>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="text-center">
+								<img th:src="@{'/assets/images/face1.jpg'}"
+									class="avatar img-circle img-thumbnail" alt="avatar">
+							</div>
+						</div>
 					</div>
+
 				</div>
 			</div>
 
 		</div>
 	</div>
+		</div>
+		<!-- user content -->
+	</div>
+	<!--/* Footer fragment */-->
+	<footer th:replace="views/web/layout/footer :: footer"></footer>
+
+	<!-- js -->
+	<script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
+	<!-- //js -->
+	<!-- smooth dropdown -->
+	<script>
+		$(document).ready(function () {
+			$('ul li.dropdown').hover(function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+			}, function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+			});
+		});
+	</script>
+	<!-- //smooth dropdown -->
+	<!-- cart-js -->
+	<script th:src="@{/assets/web/js/minicart.js}"></script>
+	<script>
+		hub.render();
+
+		hub.cart.on('new_checkout', function (evt) {
+			var items, len, i;
+
+			if (this.subtotal() > 0) {
+				items = this.items();
+
+				for (i = 0, len = items.length; i < len; i++) { }
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+	<!-- start-smooth-scrolling -->
+	<script th:src="@{/assets/web/js/move-top.js}"></script>
+	<script th:src="@{/assets/web/js/easing.js}"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<script th:src="@{/assets/web/js/SmoothScroll.min.js}"></script>
+	<!-- //smooth-scrolling-of-move-up -->
+	<!-- Bootstrap core JavaScript
+			================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
 
 </body>
+
 </html>

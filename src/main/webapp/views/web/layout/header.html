@@ -3,6 +3,7 @@
 
 <head>
 	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
 	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
 	<link th:href="@{/assets/web/css/style.css}" rel="stylesheet" type="text/css" media="all">
 	<link th:href="@{/assets/web/css/fontawesome-all.min.css}" rel="stylesheet">
@@ -49,7 +50,7 @@
 						                        <div class="row">
 						                            <div class="col-md-4">
 						                                <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/dashboard}">Dashboard</a>
-						                                <a class="dropdown-item" href="men.html">My Profile</a>
+						                                <a class="dropdown-item" th:href="@{/users/{id}(id=${#authentication.getPrincipal().getId()})}">My Profile</a>
 						                                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
 						                            </div>
 						                        </div>
