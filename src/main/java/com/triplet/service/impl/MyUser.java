@@ -17,8 +17,16 @@ public class MyUser extends User {
 	}
 
 	private int id;
-
-	private String fullName;
+	
+	private String fullname;
+	
+	private String email;
+	
+	private String address;
+	
+	private String avatar;
+	
+	private String phone;
 
 	public int getId() {
 		return id;
@@ -28,12 +36,43 @@ public class MyUser extends User {
 		this.id = id;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getFullname() {
+		return fullname;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

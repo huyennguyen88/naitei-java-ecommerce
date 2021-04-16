@@ -29,7 +29,11 @@ public class UserDetailsServiceImpl extends BaseServiceImpl implements UserDetai
 			}
 			MyUser myUser = new MyUser(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
 			myUser.setId(user.getId());
-			myUser.setFullName(user.getFullname());
+			myUser.setFullname(user.getFullname());
+			myUser.setEmail(user.getEmail());
+			myUser.setAddress(user.getAddress());
+			myUser.setAvatar(user.getAvatar());
+			myUser.setPhone(user.getPhone());
 			return myUser;
 			
 		}catch(Exception e){
