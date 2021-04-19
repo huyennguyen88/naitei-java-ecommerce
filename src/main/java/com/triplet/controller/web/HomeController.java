@@ -16,10 +16,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.triplet.bean.UserInfo;
+import com.triplet.model.User;
 import com.triplet.service.UserService;
+import com.triplet.utils.AuthFacebookUtils;
 import com.triplet.validate.UserValidation;
 
 @PropertySource("classpath:messages.properties")
@@ -77,12 +80,35 @@ public class HomeController extends BaseController {
 		if (result.hasErrors()) {
 			return "views/signup/signup";
 		} else if (userService.createUser(userInfo.convertToUser()) == false) {
-			model.addAttribute("error",msg_error_username_or_email);
+			model.addAttribute("error", msg_error_username_or_email);
 			return "views/signup/signup";
 		}
 		userService.createUser(userInfo.convertToUser());
 		redirectAttributes.addFlashAttribute("registersuccess", msg_sucess_register);
 		logger.info(redirectAttributes.getAttribute("registersuccess"));
 		return "views/signin/signin";
+	}
+
+	@PostMapping("/login-facebook")
+	public String loginFB(@RequestParam("id") String id, @RequestParam("fullname") String fullname,
+			@RequestParam("email") String email, @RequestParam("avatar") String avatar) {
+		User user = null;
+		// If user not exist, register processing
+		if (!userService.checkUsernameExist(id) && !userService.checkEmailExist(email)) {
+			user = new User();
+			user.setUsername(id);
+			user.setFullname(fullname);
+			user.setEmail(email);
+			user.setAvatar(avatar);
+			userService.createUser(user);
+		} else {
+			// If user exist, load user
+			user = userService.findByUsername(id);
+		}
+		// Login processing
+		AuthFacebookUtils authFacebookUtils = new AuthFacebookUtils();
+		authFacebookUtils.SetAuthentication(user);
+
+		return "views/web/home/index";
 	}
 }

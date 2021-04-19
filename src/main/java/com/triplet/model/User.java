@@ -47,7 +47,7 @@ public class User {
 	@Type(type = "text")
 	private String address;
 
-	@Column(name = "password", nullable = false)
+	@Column(name = "password")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)

@@ -167,6 +167,7 @@
 			<version>3.0.4.RELEASE</version>
 		</dependency>
 		
+		<!-- Logging -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -177,6 +178,7 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
 		</dependency>
+
 		<!-- Upload File -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
