@@ -120,6 +120,12 @@ public class HomeController extends BaseController {
 		AuthFacebookUtils authFacebookUtils = new AuthFacebookUtils();
 		authFacebookUtils.SetAuthentication(user);
 
-		return "views/web/home/index";
+		return "views/web/home/index";	
 	}
+	
+	@GetMapping("/contact")
+	public String showContact() {
+		return "views/web/contact/contact";
+	}
+	
 }
