@@ -1,7 +1,10 @@
 package com.triplet.controller.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.triplet.bean.UserInfo;
+import com.triplet.model.Category;
 import com.triplet.model.User;
+import com.triplet.service.CategoryService;
 import com.triplet.service.UserService;
 import com.triplet.utils.AuthFacebookUtils;
 import com.triplet.validate.UserValidation;
@@ -32,6 +37,9 @@ public class HomeController extends BaseController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CategoryService categoryService;
 
 	@Value("${msg_error_username_or_email}")
 	private String msg_error_username_or_email;
@@ -40,8 +48,11 @@ public class HomeController extends BaseController {
 	private String msg_sucess_register;
 
 	@GetMapping(value = { "/", "/welcome" })
-	public String index(Model model) {
+	public String index(Model model, HttpSession session) {
 		logger.info("home page");
+		
+		List<Category> roots = categoryService.getRoots();
+		session.setAttribute("roots", roots);
 		return "views/web/home/index";
 	}
 

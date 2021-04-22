@@ -87,8 +87,23 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto text-center">
 					<li class="nav-item">
-						<a class="nav-link  active" th:href="@{/}">Home</a>
+						<a class="nav-link" th:href="@{/}">Home</a>
 					</li>
+				    <li th:unless="${session.roots.empty}" th:each="category: ${session.roots}"  class="nav-item dropdown has-mega-menu" style="position:static;">
+				        <a th:text="${category.name}" class="nav-link dropdown-toggle" data-toggle="dropdown" th:href="@{/categories/{id}/products(id=${category.id})}" role="button" aria-haspopup="true" aria-expanded="false"></a>
+				        <div class="dropdown-menu" style="width:100%">
+				            <div class="px-0 container">
+				                <div th:unless="${category.children.empty}" class="row">
+				                    <div th:each="subcate : ${category.children}" class="col-md-3">
+				                        <a class="font-weight-bold text-danger p-1" th:text="${subcate.name}" th:href="@{/categories/{id}/products(id=${subcate.id})}"></a>
+				                        <div th:unless="${subcate.children.empty}">
+				                            <a th:each="sub2cate : ${subcate.children}" class="dropdown-item" th:text="${sub2cate.name}" th:href="@{/categories/{id}/products(id=${sub2cate.id})}"></a>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+				        </div>
+				    </li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">About</a>
 					</li>

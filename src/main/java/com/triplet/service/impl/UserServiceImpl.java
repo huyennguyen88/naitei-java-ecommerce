@@ -22,17 +22,32 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
 	@Override
 	public List<User> loadUsers() {
-		return getUserDAO().loadUsers();
+		try {
+			return getUserDAO().loadUsers();
+		}catch(Exception e) {
+			logger.error(e);
+			return null;
+		}
 	}
 
 	@Override
 	public User findById(Serializable key) {
-		return getUserDAO().findById(key);
+		try {
+			return getUserDAO().findById(key);
+		}catch(Exception e) {
+			logger.error(e);
+			return null;
+		}
 	}
 
 	@Override
 	public User findByUsername(String username) {
-		return getUserDAO().findByUsername(username);
+		try {
+			return getUserDAO().findByUsername(username);
+		}catch(Exception e) {
+			logger.error(e);
+			return null;
+		}
 	}
 
 	@Override
@@ -51,6 +66,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			getUserDAO().delete(entity);
 			return true;
 		} catch (Exception e) {
+			logger.error(e);
 			throw e;
 		}
 	}
@@ -111,19 +127,24 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	}
 
 	public List<User> convertToUsers(List<UserInfo> listUserInfo) {
-		List<User> users = new ArrayList<User>();
-		for (UserInfo userInfo : listUserInfo) {
-			User user = userInfo.convertToUser();
+		try {
+			List<User> users = new ArrayList<User>();
+			for (UserInfo userInfo : listUserInfo) {
+				User user = userInfo.convertToUser();
 
-			Role role = new Role();
-			role.setId(2);
-			role.setCode("USER");
-			List<Role> roles = new ArrayList<>();
-			roles.add(role);
-			user.setRoles(roles);
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			users.add(user);
+				Role role = new Role();
+				role.setId(2);
+				role.setCode("USER");
+				List<Role> roles = new ArrayList<>();
+				roles.add(role);
+				user.setRoles(roles);
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				users.add(user);
+			}
+			return users;
+		}catch(Exception e) {
+			logger.error(e);
+			return null;
 		}
-		return users;
 	}
 }
