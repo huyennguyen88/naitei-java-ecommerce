@@ -1,23 +1,23 @@
 package com.triplet.controller.web;
 
 import java.util.List;
-
+import java.util.Optional;
 import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.triplet.bean.ProductInfo;
-import com.triplet.converter.ProductConverter;
 import com.triplet.model.Product;
 import com.triplet.service.ProductService;
 
 @Controller
 @RequestMapping("/categories")
-public class CategoryController {
+public class CategoryController extends BaseController {
 
 	Logger logger = Logger.getLogger(CategoryController.class);
 
@@ -25,11 +25,9 @@ public class CategoryController {
 	private ProductService productService;
 
 	@GetMapping(value = "/{id}/products")
-	public String category(@PathVariable int id, Model model) {
-		ProductConverter productConverter = new ProductConverter();
+	public String loadProducts(@PathVariable int id, @RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size, Model model) {
 		List<Product> products = productService.loadFullProductsByCategory(id);
-		List<ProductInfo> productInfos = productConverter.convertToProductInfos(products);
-		model.addAttribute("products", productInfos);
-		return "views/web/products/products";
+		return Pagination(id, page, size, products, model, "views/web/products/products");
 	}
 }

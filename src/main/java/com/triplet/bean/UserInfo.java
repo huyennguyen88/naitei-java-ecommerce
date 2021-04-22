@@ -29,7 +29,8 @@ public class UserInfo {
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 		this.address = user.getAddress();
-		this.addresses = Arrays.asList(user.getAddress().split("/"));
+		if (user.getAddress() != null)
+			this.addresses = Arrays.asList(user.getAddress().split("/"));
 		this.phone = user.getPhone();
 		this.avatar = user.getAvatar();
 	}
