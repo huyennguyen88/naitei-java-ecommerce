@@ -23,6 +23,6 @@ public class ProductController {
 		Product product = productService.findById(id);
 		ProductInfo productInfo = new ProductInfo(product);
 		model.addAttribute("product", productInfo);	
-		return "views/web/product/product";
+		return "views/web/products/product";
 	}
 }

@@ -30,6 +30,6 @@ public class CategoryController {
 		List<Product> products = productService.loadFullProductsByCategory(id);
 		List<ProductInfo> productInfos = productConverter.convertToProductInfos(products);
 		model.addAttribute("products", productInfos);
-		return "views/web/product/products";
+		return "views/web/products/products";
 	}
 }
