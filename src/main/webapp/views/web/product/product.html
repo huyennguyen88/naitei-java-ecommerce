@@ -43,6 +43,8 @@
 </head>
 
 <body>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" th:src="@{https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0&appId=926701404829342&autoLogAppEvents=1}" nonce="EQS6Sg76"></script>
 	<!--/* Header fragment */-->
 	<header th:replace="views/web/layout/header :: header"></header>
 
@@ -173,6 +175,19 @@
 					</div>
 				</div>
 			</div>
+			<!-- /new_arrivals -->
+			<div class="section singlep_btm pb-5">
+			    <div class="container">
+			        <div class="new_arrivals">
+			            <h4 class="rad-txt text-capitalize">Comment
+			            </h4>
+			            <div class="fb-comments" th:attr="data-href='http://localhost:8080/triplet/products/'+${product.id}" 
+			                data-width="" data-numposts="5">
+			            </div>
+			        </div>
+			    </div>
+			</div>
+			<!--//new_arrivals-->
 		</div>
 	</div>
 
