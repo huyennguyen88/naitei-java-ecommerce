@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="views/web/layout/base-layout :: head(~{ :: title}, ~{ :: .custom-link}, ~{ :: .custom-script})">
+
+	<!--/*  Title will be replaced by their respective titles in the calling template. */-->
+	<title>Contact</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="utf-8" />
+	<meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+
+	<!--/* Default links; can be replaced by the calling templates */-->
+	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/style.css}" rel="stylesheet" type="text/css" media="all">
+	<link th:href="@{/assets/web/css/fontawesome-all.min.css}" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
+		rel="stylesheet">
+
+
+	<!--/* Per-page placeholder for additional links */-->
+	<link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
+
+	<script class="custom-script">
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+
+	</script>
+
+</head>
+
+<body>
+	<!--/* Header fragment */-->
+	<header th:replace="views/web/layout/header :: header"></header>
+
+	<div th:replace="views/web/layout/banner :: banner-shared"></div>
+
+	<div th:insert="views/web/layout/base-layout :: content(~{ :: #contactContent})">
+		<!-- contact content -->
+		<div id="contactContent">
+			<section class="wthree-row pt-3 pb-sm-5 w3-contact">
+				<div class="container py-sm-5 pb-5">
+					<h5 class="head_agileinfo text-center text-capitalize pb-5">
+						<span>C</span>ontact us
+					</h5>
+					<div class="row contact-form pt-lg-5">
+						<div class="col-lg-6 wthree-form-left">
+							<!-- contact form grid -->
+							<div class="contact-top1">
+								<h5 class="text-dark mb-4 text-capitalize">send us a note</h5>
+								<form action="#" method="get" class="f-color">
+									<div class="form-group">
+										<label for="contactusername">Name</label>
+										<input type="text" class="form-control" id="contactusername" required>
+									</div>
+									<div class="form-group">
+										<label for="contactemail">Email</label>
+										<input type="email" class="form-control" id="contactemail" required>
+									</div>
+									<div class="form-group">
+										<label for="contactcomment">Your Message</label>
+										<textarea class="form-control" rows="5" id="contactcomment" required></textarea>
+									</div>
+									<button type="submit" class="btn btn-info btn-block">Submit</button>
+								</form>
+							</div>
+							<!--  //contact form grid ends here -->
+						</div>
+						<!-- contact details -->
+						<div class="col-lg-6 contact-bottom pl-5 mt-lg-0 mt-5">
+							<!-- contact details grid1-->
+							<div class="address">
+								<h5 class="pb-3 text-capitalize">Address</h5>
+								<address>
+									<p class="c-txt">90 Street, City, State 34789.</p>
+									<p class="c-txt">76 Street, City, State 34789.</p>
+								</address>
+							</div>
+							<!-- contact details grid2-->
+							<div class="address my-5">
+								<h5 class="pb-3 text-capitalize">phone</h5>
+								<p>
+									+10 234 5678</p>
+								<p>
+									+11 222 333</p>
+								<p>
+									+12 222 333</p>
+							</div>
+							<!-- contact details grid3 -->
+							<div class="address mt-md-0 mt-3">
+								<h5 class="pb-3 text-capitalize">Email</h5>
+								<p>
+									<a
+										th:href="@{mailto:nguyen.thanh.huyen@sun-asterisk.com}">nguyen.thanh.huyen@sun-asterisk.com</a>
+								</p>
+								<p>
+									<a
+										th:href="@{mailto:nguyen.thi.thu.f@sun-asterisk.com}">nguyen.thi.thu.f@sun-asterisk.com</a>
+								</p>
+								<p>
+									<a
+										th:href="@{mailto:phan.minh.tuan.anh@sun-asterisk.com}">phan.minh.tuan.anh@sun-asterisk.com</a>
+								</p>
+							</div>
+							<!-- //contact details row ends here -->
+						</div>
+					</div>
+					<!-- //contact details container -->
+				</div>
+				<!-- contact map grid -->
+				<div class="map contact-right pb-5">
+					<div class="pt-lg-5 bg-pricemain text-center">
+						<h3 class="stat-title text-capitalize pb-5">get directions</h3>
+						<span class="w3-line"></span>
+					</div>
+					<iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+						src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=Fhome%20%C4%90%C3%A0%20N%E1%BA%B5ng,%20Ki%E1%BB%87t%2025%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t,%20H%E1%BA%A3i%20Ch%C3%A2u,%20%C4%90%C3%A0%20N%E1%BA%B5ng,%20Vi%E1%BB%87t%20Nam+(Sun%20Asterisk%20VietNam)&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+					</iframe>
+				</div>
+				<!--//contact map grid ends here-->
+			</section>
+		</div>
+
+	</div>
+
+	<!--/* Footer fragment */-->
+	<footer th:replace="views/web/layout/footer :: footer"></footer>
+
+	<!-- js -->
+	<script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
+
+	<!-- //js -->
+	<!-- Load the JS SDK asynchronously -->
+	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous"></script>
+
+	<!-- smooth dropdown -->
+	<script>
+		$(document).ready(function () {
+			$('ul li.dropdown').hover(function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
+			}, function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
+			});
+		});
+	</script>
+	<!-- //smooth dropdown -->
+	<!-- cart-js -->
+	<script th:src="@{/assets/web/js/minicart.js}"></script>
+	<script>
+		hub.render();
+
+		hub.cart.on('new_checkout', function (evt) {
+			var items, len, i;
+
+			if (this.subtotal() > 0) {
+				items = this.items();
+
+				for (i = 0, len = items.length; i < len; i++) { }
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+	<!-- start-smooth-scrolling -->
+	<script th:src="@{/assets/web/js/move-top.js}"></script>
+	<script th:src="@{/assets/web/js/easing.js}"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<script th:src="@{/assets/web/js/SmoothScroll.min.js}"></script>
+	<!-- //smooth-scrolling-of-move-up -->
+	<!-- Bootstrap core JavaScript
+			================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
+</body>
+
+</html>
