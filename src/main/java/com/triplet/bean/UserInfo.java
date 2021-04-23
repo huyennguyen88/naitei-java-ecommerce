@@ -1,5 +1,8 @@
 package com.triplet.bean;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.triplet.model.User;
 
 public class UserInfo {
@@ -10,9 +13,26 @@ public class UserInfo {
 	private String email;
 	private String password;
 	private String confirmPassword;
-	private String address;
 	private String avatar;
 	private String phone;
+	private String address;
+	private List<String> addresses;
+
+	public UserInfo() {
+		super();
+	}
+
+	public UserInfo(User user) {
+		this.id = user.getId();
+		this.fullname = user.getFullname();
+		this.username = user.getUsername();
+		this.email = user.getEmail();
+		this.password = user.getPassword();
+		this.address = user.getAddress();
+		this.addresses = Arrays.asList(user.getAddress().split("/"));
+		this.phone = user.getPhone();
+		this.avatar = user.getAvatar();
+	}
 
 	public int getId() {
 		return id;
@@ -70,6 +90,14 @@ public class UserInfo {
 		this.address = address;
 	}
 
+	public List<String> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<String> addresses) {
+		this.addresses = addresses;
+	}
+
 	public String getAvatar() {
 		return avatar;
 	}
@@ -86,29 +114,23 @@ public class UserInfo {
 		this.phone = phone;
 	}
 
-	public UserInfo() {
-	}
-
-	public UserInfo(String fullname, String username, String email, String password, String address, String phone,
-			String avatar) {
-		this.fullname = fullname;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.address = address;
-		this.phone = phone;
-		this.avatar = avatar;
-	}
-
 	public User convertToUser() {
 		User user = new User();
 		user.setFullname(this.getFullname());
 		user.setUsername(this.getUsername());
 		user.setEmail(this.getEmail());
 		user.setPassword(this.getPassword().trim());
-		user.setAddress(this.getAddress());
 		user.setAvatar(this.getAvatar());
 		user.setPhone(this.getPhone());
+
+		// Addresses's List to String
+		StringBuilder strbld = new StringBuilder();
+		for (String address : this.addresses) {
+			strbld.append(address);
+			strbld.append('/');
+		}
+		user.setAddress(strbld.toString());
+
 		return user;
 	}
 }
