@@ -35,7 +35,7 @@ public class UserController extends BaseController {
 	private String msg_error_update;
 
 	@GetMapping("/{id}")
-	public String redering(@PathVariable("id") int id, Model model, HttpServletRequest request,
+	public String show(@PathVariable("id") int id, Model model, HttpServletRequest request,
 			final RedirectAttributes redirectAttributes) {
 		MyUser currentUser = loadCurrentUser();
 		if (currentUser.getId() != id) {

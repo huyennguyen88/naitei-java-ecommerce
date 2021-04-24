@@ -1,51 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{views/web/layout/base-layout.html}">
 
-<head th:replace="views/web/layout/base-layout :: head(~{ :: title}, ~{ :: .custom-link}, ~{ :: .custom-script})">
-
-	<!--/*  Title will be replaced by their respective titles in the calling template. */-->
+<head>
 	<title>Contact</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta charset="utf-8" />
-	<meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
-
-	<!--/* Default links; can be replaced by the calling templates */-->
-	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/style.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/fontawesome-all.min.css}" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
-
-
-	<!--/* Per-page placeholder for additional links */-->
-	<link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
-
-	<script class="custom-script">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-
-	</script>
-
 </head>
 
 <body>
-	<!--/* Header fragment */-->
-	<header th:replace="views/web/layout/header :: header"></header>
-
-	<div th:replace="views/web/layout/banner :: banner-shared"></div>
-
-	<div th:insert="views/web/layout/base-layout :: content(~{ :: #contactContent})">
+	<section layout:fragment="content">
+		<div th:replace="views/web/layout/banner :: banner-shared"></div>
 		<!-- contact content -->
 		<div id="contactContent">
 			<section class="wthree-row pt-3 pb-sm-5 w3-contact">
@@ -130,85 +94,7 @@
 				<!--//contact map grid ends here-->
 			</section>
 		</div>
-
-	</div>
-
-	<!--/* Footer fragment */-->
-	<footer th:replace="views/web/layout/footer :: footer"></footer>
-
-	<!-- js -->
-	<script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
-
-	<!-- //js -->
-	<!-- Load the JS SDK asynchronously -->
-	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous"></script>
-
-	<!-- smooth dropdown -->
-	<script>
-		$(document).ready(function () {
-			$('ul li.dropdown').hover(function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
-			}, function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
-			});
-		});
-	</script>
-	<!-- //smooth dropdown -->
-	<!-- cart-js -->
-	<script th:src="@{/assets/web/js/minicart.js}"></script>
-	<script>
-		hub.render();
-
-		hub.cart.on('new_checkout', function (evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) { }
-			}
-		});
-	</script>
-	<!-- //cart-js -->
-	<!-- start-smooth-scrolling -->
-	<script th:src="@{/assets/web/js/move-top.js}"></script>
-	<script th:src="@{/assets/web/js/easing.js}"></script>
-	<script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 1000);
-			});
-		});
-	</script>
-	<!-- //end-smooth-scrolling -->
-	<!-- smooth-scrolling-of-move-up -->
-	<script>
-		$(document).ready(function () {
-			/*
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-			};
-			*/
-
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
-
-		});
-	</script>
-	<script th:src="@{/assets/web/js/SmoothScroll.min.js}"></script>
-	<!-- //smooth-scrolling-of-move-up -->
-	<!-- Bootstrap core JavaScript
-			================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
+	</section>
 </body>
 
 </html>
