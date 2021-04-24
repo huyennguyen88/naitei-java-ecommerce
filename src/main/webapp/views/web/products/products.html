@@ -48,14 +48,14 @@
 		<div id="productsContent">
 			<!-- Shop -->
 			<div class="container">
-				<div class="row my-4" th:unless="${products.empty}">
+				<div class="row my-4" th:unless="${objectPage.content.empty}">
 					<!-- card group  -->
 					<div class="card-group">
 						<!-- card -->
-						<div class="col-lg-3 col-md-6 mb-4 p-0" th:each="product : ${products}">
+						<div class="col-lg-3 col-md-6 mb-4 p-0" th:each="product : ${objectPage.content}">
 							<div class="card  h-100 product-men p-3">
 								<div class="men-thumb-item">
-									<img class="card-img-top" th:src="@{'/assets/images/'+${product.images[0]}}"
+									<img class="card-img-top" th:src="@{'/assets/images/'+${#strings.setSplit(product.image,'/')[0]}}"
 										alt="img">
 									<div class="men-cart-pro">
 										<div class="inner-men-cart-pro">
@@ -92,6 +92,30 @@
 					<!-- //card group -->
 				</div>
 			</div>
+			<nav th:if="${objectPage.totalPages > 0}" aria-label="paging product" class="my-3">
+				<ul class="pagination justify-content-center">
+					<li class="page-item" th:classappend="${objectPage.number < 1} ? disabled">
+						<a th:if="${objectPage.number > 0}"
+							th:href="@{/categories/{id}/products(id=${id}, size=${objectPage.size}, page=${objectPage.number})}"
+							class="page-link" tabindex="-1">Previous</a>
+						<a th:if="${objectPage.number == 0 }" href="#" class="page-link" tabindex="-1">Previous</a>
+					</li>
+					<li th:each="pageNumber : ${pageNumbers}" class="page-item"
+						th:classappend="${pageNumber==objectPage.number + 1} ? active">
+						<a class="page-link" th:text=${pageNumber}
+							th:href="@{/categories/{id}/products(id=${id}, size=${objectPage.size}, page=${pageNumber})}">
+							<span th:if="${pageNumber==objectPage.number + 1}" class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="page-item"
+						th:classappend="${objectPage.number ==  objectPage.totalPages - 1} ? disabled">
+						<a th:if="${objectPage.number < objectPage.totalPages - 1 }" class="page-link"
+							th:href="@{/categories/{id}/products(id=${id}, size=${objectPage.size}, page=${objectPage.number +2})}">Next</a>
+						<a th:if="${objectPage.number == objectPage.totalPages -1 }" class="page-link"
+							href="#">Next</a>
+					</li>
+				</ul>
+			</nav>
 			<!--// Shop -->
 		</div>
 	</div>
