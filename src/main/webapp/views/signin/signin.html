@@ -9,7 +9,8 @@
 	<meta charset="utf-8" />
 	<meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
-
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://apis.google.com https://connect.facebook.net" >
+	
 	<!--/* Default links; can be replaced by the calling templates */-->
 	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
 	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
@@ -132,6 +133,10 @@
 										<input type="password" class="form-control" placeholder="Your password "
 											name="password">
 									</div>
+									<div class="form-group">
+										<label class="col-form-label">Remember me?</label>
+										<input type="checkbox" name="remember-me" />
+									</div>									
 									<div class="form-group right-w3l">
 										<input type="submit" class="form-control" value="Login">
 									</div>
@@ -229,4 +234,5 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
 </body>
+
 </html>

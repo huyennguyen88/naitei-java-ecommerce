@@ -18,7 +18,7 @@
 
 	<http use-expressions="true">
 		<csrf disabled="true" />
-		
+
 		<intercept-url pattern="/admin/**"
 			access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/dashboard"
@@ -34,10 +34,11 @@
 			username-parameter="username" password-parameter="password" />
 
 		<session-management
-			invalid-session-url="/login?sessionTimeout" />	
-		
+			invalid-session-url="/login?sessionTimeout" />
+
 		<logout logout-url="/logout" delete-cookies="JSESSIONID"
 			invalidate-session="true" />
+		<remember-me key="uniqueAndSecret" token-validity-seconds="1296000"/>	
 	</http>
 
 	<authentication-manager>
