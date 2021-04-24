@@ -17,17 +17,29 @@
 	<!-- header -->
 	<div th:fragment="header" class="container">
 		<!-- top nav -->
-		<nav class="top_nav d-flex pt-3 pb-1">
+		<nav class="top_nav d-flex justify-content-between pt-2">
 			<!-- logo -->
 			<h1>
 				<a class="navbar-brand" th:href="@{/}">3t </a>
 			</h1>
 			<!-- //logo -->
-			<div class="w3ls_right_nav ml-auto d-flex">
+			
+			<!-- Search form -->
+			<form th:action="@{/products/search-submit}" method="get">
+			 <div class="input-group mb-1">
+			  <input type="text" class="form-control" id="search" name="name" placeholder="Search product by name..." >
+			  <div class="input-group-append">
+			    <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+			  </div>
+			</div>
+			</form>
+			<!-- //Search form -->
+			
+			<div class="w3ls_right_nav ml-auto d-flex">	
 				<div class="nav-icon d-flex">
 					<!-- sigin and sign up -->
 					<a sec:authorize="!isAuthenticated()" class="text-dark login_btn align-self-center mx-3"
-						th:href="@{/login}"> <i class="far fa-user"></i>
+						th:href="@{/login}"> <i class="fas fa-user-circle"></i>
 					</a>
 					<!-- sigin and sign up -->
 					<div sec:authorize="isAuthenticated()" class="align-self-center mx-3">
@@ -120,6 +132,7 @@
 	</div>
 	<!-- //header container -->
 	<!-- //header -->
+
 </body>
 
 </html>

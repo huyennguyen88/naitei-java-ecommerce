@@ -61,4 +61,24 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 	}
 
+	@Override
+	public List<String> searchByName(String term) {
+		try {
+			return getProductDAO().searchByName(term);
+		}catch(Exception e) {
+			logger.error(e);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Product> findByName(String name) {
+		try {
+			return getProductDAO().findByName(name);
+		}catch(Exception e) {
+			logger.error(e);
+		}
+		return null;
+	}
+
 }

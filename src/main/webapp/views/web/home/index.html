@@ -22,6 +22,7 @@
         rel="stylesheet">
 
     <link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css}">    
 
     <script>
         addEventListener("load", function () {
@@ -36,6 +37,7 @@
 </head>
 
 <body>
+
     <!--/* Header fragment */-->
     <header th:replace="views/web/layout/header :: header"></header>
     <!--/* The value passed from calling template will be inserted in this element */-->
@@ -103,7 +105,29 @@
     
     <!-- Load the JS SDK asynchronously -->
 	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous" ></script>
-    
+	<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+
+	<script type="text/javascript">
+	    $(document).ready(function () {  
+	        $("#search").autocomplete({  
+	            source: function(request,response) {  
+	                $.ajax({  
+	                    url: "products/search",  
+	                    type: "GET",    
+	                    data: { term: request.term },  
+	                    success: function (data) {  
+	                        response($.map(data, function (item) {  
+	                            return { value: item};  
+	                        }))  
+	                    },
+	    				error : function(e) {
+	    					console.log("ERROR: ", e);
+	    				}
+	                })  
+	            }
+	        });  
+	    })  
+	</script>
     <!-- smooth dropdown -->
     <script>
         $(document).ready(function () {
