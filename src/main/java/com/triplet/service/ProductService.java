@@ -13,4 +13,7 @@ public interface ProductService extends BaseService<Integer, Product>{
 
 	Page<Product> findPagination(Pageable pageable, List<Product> products);
 
+	List<String> searchByName(String term);
+	
+	List<Product> findByName(String name);
 }

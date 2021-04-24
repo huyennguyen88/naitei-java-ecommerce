@@ -22,6 +22,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" th:href="@{//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css}">    
 
     <!--/* Per-page placeholder for additional links */-->
     <th:block th:replace="${links}" />
@@ -36,8 +37,6 @@
             window.scrollTo(0, 1);
         }
     </script>
-
-
 </head>
 
 <body>
@@ -50,10 +49,35 @@
 
     <!-- js -->
     <script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
+    <script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.js}"></script>
+    
     	<!-- //js -->
 	<!-- Load the JS SDK asynchronously -->
 	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous" ></script>
     <!-- //js -->
+    
+	<script type="text/javascript">
+	    $(document).ready(function () {  
+	        $("#search").autocomplete({  
+	            source: function(request,response) {  
+	                $.ajax({  
+	                    url: "http://localhost:8080/triplet/products/search",  
+	                    type: "GET",    
+	                    data: { term: request.term },  
+	                    success: function (data) {  
+	                        response($.map(data, function (item) {  
+	                            return { value: item };  
+	                        }))  
+	                    },
+	    				error : function(e) {
+	    					console.log("ERROR: ", e);
+	    				}
+	                })  
+	            }
+	        });  
+	    })  
+	</script>
+    
     <!-- smooth dropdown -->
     <script>
         $(document).ready(function () {

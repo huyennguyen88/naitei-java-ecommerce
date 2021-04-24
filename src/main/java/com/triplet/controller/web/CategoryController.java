@@ -23,11 +23,28 @@ public class CategoryController extends BaseController {
 
 	@Autowired
 	private ProductService productService;
+	
+	private List<Product> products;
 
 	@GetMapping(value = "/{id}/products")
-	public String loadProducts(@PathVariable int id, @RequestParam("page") Optional<Integer> page,
+	public String loadProducts(@PathVariable int id,@RequestParam("page") Optional<Integer> page,
 			@RequestParam("size") Optional<Integer> size, Model model) {
-		List<Product> products = productService.loadFullProductsByCategory(id);
-		return Pagination(id, page, size, products, model, "views/web/products/products");
+		
+		this.products = productService.loadFullProductsByCategory(id);
+
+		String url = "/categories/paging";
+		String endPoint = "views/web/products/products";
+		
+		return Pagination(url ,page, size, products, model, endPoint);
+	}
+	
+	@GetMapping(value = "/paging")
+	public String loadPagination(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size, Model model) {
+		
+		String url = "/categories/paging";
+		String endPoint = "views/web/products/products";
+		
+		return Pagination(url ,page, size, this.products, model, endPoint);
 	}
 }

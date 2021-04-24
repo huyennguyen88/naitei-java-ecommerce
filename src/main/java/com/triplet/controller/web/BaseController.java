@@ -27,7 +27,7 @@ public abstract class BaseController {
 		return "redirect:" + redirectEndpoint;
 	}
 
-	protected <T> String Pagination(int id, Optional<Integer> page, Optional<Integer> size, List<T> objects,
+	protected <T> String Pagination(String url, Optional<Integer> page, Optional<Integer> size, List<T> objects,
 			Model model, String returnEndpoint) {
 		int currentPage = page.orElse(1);
 		int pageSize = size.orElse(20);
@@ -40,7 +40,7 @@ public abstract class BaseController {
 		}
 
 		model.addAttribute("objectPage", objectPage);
-		model.addAttribute("id", id);
+		model.addAttribute("url", url);
 		model.addAttribute("currentPage", currentPage);
 		return returnEndpoint;
 	}
