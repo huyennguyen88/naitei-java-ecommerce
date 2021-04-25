@@ -34,7 +34,6 @@ public class CategoryController extends BaseController {
 
 		String url = "/categories/paging";
 		String endPoint = "views/web/products/products";
-		
 		return Pagination(url ,page, size, products, model, endPoint);
 	}
 	
