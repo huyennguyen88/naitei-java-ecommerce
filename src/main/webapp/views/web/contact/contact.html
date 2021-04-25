@@ -49,6 +49,13 @@
 		<!-- contact content -->
 		<div id="contactContent">
 			<section class="wthree-row pt-3 pb-sm-5 w3-contact">
+				<div th:if="${msg != null}" class="alert alert-dismissible "
+					th:classappend="${css == 'error' ? 'alert-danger' : 'alert-success'}" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<strong><span th:text="${msg}"></span></strong>
+				</div>			
 				<div class="container py-sm-5 pb-5">
 					<h5 class="head_agileinfo text-center text-capitalize pb-5">
 						<span>C</span>ontact us
@@ -58,18 +65,14 @@
 							<!-- contact form grid -->
 							<div class="contact-top1">
 								<h5 class="text-dark mb-4 text-capitalize">send us a note</h5>
-								<form action="#" method="get" class="f-color">
+								<form th:action="@{/send-email}" method="post" class="f-color">
 									<div class="form-group">
-										<label for="contactusername">Name</label>
-										<input type="text" class="form-control" id="contactusername" required>
-									</div>
-									<div class="form-group">
-										<label for="contactemail">Email</label>
-										<input type="email" class="form-control" id="contactemail" required>
-									</div>
+										<label>Subject</label>
+										<input class="form-control" name="subject" required ></input>
+									</div>								
 									<div class="form-group">
 										<label for="contactcomment">Your Message</label>
-										<textarea class="form-control" rows="5" id="contactcomment" required></textarea>
+										<textarea class="form-control" rows="5" id="contactcomment" name="message" required ></textarea>
 									</div>
 									<button type="submit" class="btn btn-info btn-block">Submit</button>
 								</form>

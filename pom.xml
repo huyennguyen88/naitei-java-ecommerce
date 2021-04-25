@@ -166,7 +166,7 @@
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 			<version>3.0.4.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -200,31 +200,44 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
 		</dependency>
-		
+
 		<!--spring-data-commons -->
 		<dependency>
-		    <groupId>org.springframework.data</groupId>
-		    <artifactId>spring-data-commons</artifactId>
-		    <version>2.4.7</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+			<version>2.4.7</version>
 		</dependency>
-				
+
 		<!-- Jackson -->
-	    <dependency>
-	      <groupId>com.fasterxml.jackson.core</groupId>
-	      <artifactId>jackson-databind</artifactId>
-	      <version>2.9.3</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>com.fasterxml.jackson.core</groupId>
-	      <artifactId>jackson-core</artifactId>
-	      <version>2.9.3</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>com.fasterxml.jackson.core</groupId>
-	      <artifactId>jackson-annotations</artifactId>
-	      <version>2.9.3</version>
-	    </dependency>
-	    
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.3</version>
+		</dependency>
+
+		<!-- Mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>javax.mail</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>triplet</finalName>
