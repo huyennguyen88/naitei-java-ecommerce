@@ -34,16 +34,18 @@
                             <span>f</span>ashion
                             <span>h</span>ub
                         </h3>
-                        <h4 class="w3_bbot">shop exclusive clothing</h4>
+                        <h4 class="w3_bbot" th:text="#{exclusive}"></h4>
                         <div class="slider-info mt-sm-5">
                             <h4 class="bn_right">
                                 <span>w</span>omen's
                                 <span>f</span>ashion
                             </h4>
                             <div class="bnr_clip position-relative">
-                                <h4>get up to
-                                    <span class="px-2">45% </span>
+								<div class="row">
+                            	 <h4 th:text="#{getup}">
                                 </h4>
+                                <h4><span class="px-2">45% </span></h4>
+                            	</div>
                                 <div class="d-inline-flex flex-column banner-pos position-absolute text-center">
                                     <div class="bg-flex-item">
                                         <span>O</span>
@@ -56,9 +58,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                <p class="text-uppercase py-2">on special sale</p>
-                                <a class="btn btn-primary mt-3 text-capitalize"  th:href="@{/categories/2/products}" role="button">shop
-                                    now</a>
+                                <p class="text-uppercase py-2" th:text="#{onsale}"></p>
+                                <a class="btn btn-primary mt-3 text-capitalize"  th:href="@{/categories/2/products}" role="button"  th:text="#{shopnow}"></a>
                             </div>
                         </div>
                     </div>
@@ -69,16 +70,19 @@
                             <span>f</span>ashion
                             <span>h</span>ub
                         </h3>
-                        <h4 class="w3_bbot">shop exclusive clothing</h4>
+                        <h4 class="w3_bbot" th:text="#{exclusive}"></h4>
                         <div class="slider-info mt-sm-5">
                             <h4 class="bn_right">
                                 <span>m</span>en's
                                 <span>f</span>ashion
                             </h4>
                             <div class="bnr_clip position-relative">
-                                <h4>get up to
-                                    <span class="px-2">35% </span>
+                            	<div class="row">
+                            	 <h4 th:text="#{getup}">
                                 </h4>
+                                <h4><span class="px-2">35% </span></h4>
+                            	</div>
+
                                 <div class="d-inline-flex flex-column banner-pos position-absolute text-center">
                                     <div class="bg-flex-item">
                                         <span>O</span>
@@ -91,9 +95,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                <p class="text-uppercase py-2">on special sale</p>
-                                <a class="btn btn-primary mt-3 text-capitalize" th:href="@{/categories/1/products}" role="button">shop
-                                    now</a>
+                                <p class="text-uppercase py-2" th:text="#{onsale}"></p>
+                                <a class="btn btn-primary mt-3 text-capitalize" th:href="@{/categories/1/products}" role="button" th:text="#{shopnow}"></a>
                             </div>
                         </div>
                     </div>

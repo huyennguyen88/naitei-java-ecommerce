@@ -53,7 +53,7 @@
             <div class="agilemodal-dialog modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Register Now</h5>
+                        <h5 class="modal-title" th:text="#{register}"></h5>
                     </div>
                     <div class="modal-body pt-3 pb-5 px-sm-5">
                         <div class="row">
@@ -63,12 +63,12 @@
                             <div class="col-md-6">
                                 <form th:action="@{/register-process}" method="post" th:object="${user}">
                                     <div class="form-group">
-                                        <label for="recipient-name1" class="col-form-label">Full name</label>
+                                        <label for="recipient-name1" class="col-form-label" th:text="#{fullname}"></label>
                                         <input th:field="*{fullname}" type="text" class="form-control" name="fullname"
                                             id="recipient-name1">
                                     </div>
                                     <div class="form-group">
-                                        <label for="recipient-name1" class="col-form-label">User name</label>
+                                        <label for="recipient-name1" class="col-form-label" th:text="#{username}"></label>
                                         <input th:field="*{username}" type="text" class="form-control" name="username"
                                             id="recipient-name1" required>
                                     </div>
@@ -79,29 +79,27 @@
                                             name="email" id="recipient-email" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password1" class="col-form-label">Password</label>
+                                        <label for="password1" class="col-form-label" th:text="#{password}"></label>
                                         <input th:field="*{password}" type="password" class="form-control"
                                             name="password" id="password1" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password2" class="col-form-label">Confirm Password</label>
+                                        <label for="password2" class="col-form-label" th:text="#{confirm}"></label>
                                         <input th:field="*{confirmPassword}" name="confirmPassword" type="password"
                                             class="form-control" placeholder=" " id="password2" required>
                                     </div>
                                     <div class="sub-w3l">
                                         <div class="sub-agile">
                                             <input type="checkbox" id="brand2" value="" required>
-                                            <label for="brand2" class="mb-3">
-                                                I Accept to the Terms && Conditions
+                                            <label for="brand2" class="mb-3" th:text="#{accept}">
                                             </label>
                                         </div>
                                     </div>
                                     <div class="right-w3l">
                                         <input type="submit" class="form-control" value="Register">
                                     </div>
-                                    <p class="text-center mt-3">Already a member?
-                                        <a th:href="@{/login}" class="text-dark login_btn">
-                                            Login Now</a>
+                                    <p class="text-center mt-3" th:text="#{already}">
+                                        <a th:href="@{/login}" class="text-dark login_btn" th:text="#{login}"></a>
                                     </p>
                                 </form>
 
