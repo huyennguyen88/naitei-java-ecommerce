@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.triplet.model.Category;
 import com.triplet.model.Product;
@@ -60,5 +62,10 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 			throw e;
 		}
 	}
-
+    
+	@Override
+	public Page<Product> findPagination(Pageable pageable, List<Product> products) {
+		Page<Product> productPage = findPaginationBase(pageable, products);
+		return productPage;
+	}
 }
