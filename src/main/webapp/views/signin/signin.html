@@ -1,98 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{views/web/layout/base-layout.html}">
 
-<head th:replace="views/web/layout/base-layout :: head(~{ :: title}, ~{ :: .custom-link}, ~{ :: .custom-script})">
-
-	<!--/*  Title will be replaced by their respective titles in the calling template. */-->
+<head>
 	<title>Sign in</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta charset="utf-8" />
-	<meta name="keywords" content="Fashion Hub Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
-
-	<!--/* Default links; can be replaced by the calling templates */-->
-	<link th:href="@{/assets/web/css/bootstrap.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/shop.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/style.css}" rel="stylesheet" type="text/css" media="all">
-	<link th:href="@{/assets/web/css/fontawesome-all.min.css}" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
-	<link
-		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-		rel="stylesheet">
-
-
-	<!--/* Per-page placeholder for additional links */-->
-	<link class="custom-link" rel="stylesheet" th:href="@{/assets/web/css/owl.carousel.min.css}">
-
-	<script class="custom-script">
-		addEventListener("load", function () {
-			setTimeout(hideURLbar, 0);
-		}, false);
-
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	
-	</script>
-
 </head>
 
 <body>
-	<script>
-
-	window.fbAsyncInit = function() {
-	    // FB JavaScript SDK configuration and setup
-	    FB.init({
-	      appId      : '926701404829342', // FB App ID
-	      cookie     : true,  // enable cookies to allow the server to access the session
-	      xfbml      : true,  // parse social plugins on this page
-	      version    : 'v10.0' // use graph api version 2.8
-	    });
-	    
-	};
-
-	function onLoginButton() {
-		  FB.getLoginStatus(function(response) {
-		    console.log('on login button');
-		    console.log(response);
-		    if(response.status === 'connected'){
-		    	loginProcessing();
-		    }
-		  });
-		}
-
-	function loginProcessing(){
-	    console.log('Welcome!  Fetching your information.... ');
-	    FB.api('/me',{locale: 'en_US', fields: 'id,name,email,picture'}, function(response) {
-	      console.log('Successful login for: ' + response.name);
-	 		$.ajax({
-				type : "POST",
-				url : "login-facebook",
-				data : {
-				    id : response.id,
-				    fullname : response.name,
-				    email : response.email,
-				    avatar : response.picture.data.url
-				},
-				timeout : 100000,
-				success : function(response) {
-					window.location = 'welcome';
-				},
-				error : function(e) {
-					console.log("ERROR: ", e);
-				}
-			}); 	    
-	    });
-	}
-	</script>
-	
-	<!--/* Header fragment */-->
-	<header th:replace="views/web/layout/header :: header"></header>
-
-	<div th:replace="views/web/layout/banner :: banner-shared"></div>
-
-	<div th:insert="views/web/layout/base-layout :: content(~{ :: #signinContent})">
+	<section layout:fragment="content">
+		<div th:replace="views/web/layout/banner :: banner-shared"></div>
 		<!-- signin Modal -->
 		<div id="signinContent">
 			<div class="agilemodal-dialog modal-dialog" role="document">
@@ -136,8 +53,10 @@
 										<input type="submit" class="form-control" value="Login">
 									</div>
 									<div class="form-group text-center">
-										<div class="fb-login-button" onlogin="onLoginButton();" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
-									</div>						
+										<div class="fb-login-button" onlogin="onLoginButton();" data-width=""
+											data-size="large" data-button-type="login_with" data-layout="default"
+											data-auto-logout-link="false" data-use-continue-as="false"></div>
+									</div>
 									<div class="d-flex links">
 										Don't have an account? <a th:href="@{/register}" class="ml-2">Sign
 											Up</a>
@@ -149,84 +68,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- signin Modal -->	
-	</div>		
-
-	<!--/* Footer fragment */-->
-	<footer th:replace="views/web/layout/footer :: footer"></footer>
-
-	<!-- js -->
-	<script th:src="@{/assets/web/js/jquery-2.2.3.min.js}"></script>
-	
-	<!-- //js -->
-	<!-- Load the JS SDK asynchronously -->
-	<script th:src="@{https://connect.facebook.net/vi_VN/sdk.js}" async defer crossorigin="anonymous" ></script>
-
-	<!-- smooth dropdown -->
-	<script>
-		$(document).ready(function () {
-			$('ul li.dropdown').hover(function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(200);
-			}, function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(200);
-			});
-		});
-	</script>
-	<!-- //smooth dropdown -->
-	<!-- cart-js -->
-	<script th:src="@{/assets/web/js/minicart.js}"></script>
-	<script>
-		hub.render();
-
-		hub.cart.on('new_checkout', function (evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) { }
-			}
-		});
-	</script>
-	<!-- //cart-js -->
-	<!-- start-smooth-scrolling -->
-	<script th:src="@{/assets/web/js/move-top.js}"></script>
-	<script th:src="@{/assets/web/js/easing.js}"></script>
-	<script>
-		jQuery(document).ready(function ($) {
-			$(".scroll").click(function (event) {
-				event.preventDefault();
-
-				$('html,body').animate({
-					scrollTop: $(this.hash).offset().top
-				}, 1000);
-			});
-		});
-	</script>
-	<!-- //end-smooth-scrolling -->
-	<!-- smooth-scrolling-of-move-up -->
-	<script>
-		$(document).ready(function () {
-			/*
-			var defaults = {
-				containerID: 'toTop', // fading element id
-				containerHoverID: 'toTopHover', // fading element hover id
-				scrollSpeed: 1200,
-				easingType: 'linear' 
-			};
-			*/
-
-			$().UItoTop({
-				easingType: 'easeOutQuart'
-			});
-
-		});
-	</script>
-	<script th:src="@{/assets/web/js/SmoothScroll.min.js}"></script>
-	<!-- //smooth-scrolling-of-move-up -->
-	<!-- Bootstrap core JavaScript
-			================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script th:src="@{/assets/web/js/bootstrap.js}"></script>
+		<!-- signin Modal -->
+	</section>
 </body>
+
 </html>

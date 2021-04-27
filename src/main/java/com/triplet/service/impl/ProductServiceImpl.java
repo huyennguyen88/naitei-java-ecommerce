@@ -2,6 +2,7 @@ package com.triplet.service.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -68,4 +69,25 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		Page<Product> productPage = findPaginationBase(pageable, products);
 		return productPage;
 	}
+
+	@Override
+	public List<String> getListNamesOfProduct(String term) {
+		try {
+			return getProductDAO().getListNamesOfProduct(term);
+		}catch(Exception e) {
+			logger.error(e);
+		}
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<Product> findByName(String name) {
+		try {
+			return getProductDAO().findByName(name);
+		}catch(Exception e) {
+			logger.error(e);
+		}
+		return Collections.emptyList();
+	}
+
 }
