@@ -15,7 +15,7 @@
 			<div class="agilemodal-dialog modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Login</h5>
+						<h5 class="modal-title" id="exampleModalLabel" th:text="#{login}"></h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						</button>
 					</div>
@@ -40,26 +40,28 @@
 										You are not authorized
 									</div>
 									<div class="form-group">
-										<label for="recipient-name" class="col-form-label">User name</label>
+										<label for="recipient-name" class="col-form-label" th:text="#{username}"></label>
 										<input type="text" class="form-control" placeholder="Your username "
 											name="username" id="recipient-name">
 									</div>
 									<div class="form-group">
-										<label class="col-form-label">Password</label>
+										<label class="col-form-label" th:text="#{password}"></label>
 										<input type="password" class="form-control" placeholder="Your password "
 											name="password">
 									</div>
+									<div class="form-group">
+										<label class="col-form-label" th:text="#{remember}"></label>
+										<input type="checkbox" name="remember-me" />
+									</div>									
 									<div class="form-group right-w3l">
 										<input type="submit" class="form-control" value="Login">
 									</div>
 									<div class="form-group text-center">
-										<div class="fb-login-button" onlogin="onLoginButton();" data-width=""
-											data-size="large" data-button-type="login_with" data-layout="default"
-											data-auto-logout-link="false" data-use-continue-as="false"></div>
-									</div>
+										<div class="fb-login-button" onlogin="onLoginButton();" data-width="" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+									</div>						
 									<div class="d-flex links">
-										Don't have an account? <a th:href="@{/register}" class="ml-2">Sign
-											Up</a>
+										<span th:text="#{nothave}"></span>
+										<a th:href="@{/register}" class="ml-2" th:text="#{signup}">p</a>
 									</div>
 								</form>
 							</div>
@@ -68,7 +70,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- signin Modal -->
+		<!-- signin Modal -->	
 	</section>
 </body>
 

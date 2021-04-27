@@ -27,6 +27,17 @@
 
 			<div class="w3ls_right_nav ml-auto d-flex">
 				<div class="nav-icon d-flex">
+					<div class="row justify-content-center mx-2">
+						<div class="mx-3">
+							<img th:src="@{/assets/web/images/icons8-great-britain-48.png}">
+							<a th:href="@{/(lang=en)}">English</a>
+						</div>
+
+						<div class="mx-3">
+							<img th:src="@{/assets/web/images/icons8-vietnam-48.png}">
+							<a th:href="@{/(lang=vi)}">Tiếng Việt</a>
+						</div>
+					</div>
 					<!-- sigin and sign up -->
 					<a sec:authorize="!isAuthenticated()" class="text-dark login_btn align-self-center mx-3"
 						th:href="@{/login}"> <i class="fas fa-user-circle"></i>
@@ -53,11 +64,12 @@
 												<div class="row">
 													<div class="col-md-4">
 														<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item"
-															th:href="@{/dashboard}">Dashboard</a>
+															th:href="@{/dashboard}" th:text="#{dashboard}"></a>
 														<a class="dropdown-item"
-															th:href="@{/users/{id}(id=${#authentication.getPrincipal().getId()})}">My
-															Profile</a>
-														<a class="dropdown-item" th:href="@{/logout}">Logout</a>
+															th:href="@{/users/{id}(id=${#authentication.getPrincipal().getId()})}"
+															th:text="#{profile}"></a>
+														<a class="dropdown-item" th:href="@{/logout}"
+															th:text="#{logout}"></a>
 													</div>
 												</div>
 											</div>
@@ -93,7 +105,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto text-center">
 					<li class="nav-item">
-						<a class="nav-link" th:href="@{/}">Home</a>
+						<a class="nav-link" th:href="@{/}" th:text="#{home}"></a>
 					</li>
 					<li th:unless="${session.roots.empty}" th:each="category: ${session.roots}"
 						class="nav-item dropdown has-mega-menu" style="position:static;">
@@ -117,13 +129,13 @@
 						</div>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">About</a>
+						<a class="nav-link" href="#" th:text="#{about}"></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Blog</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" th:href="@{/contact}">Contact</a>
+						<a class="nav-link" th:href="@{/contact}" th:text="#{contact}"></a>
 					</li>
 				</ul>
 			</div>
@@ -132,6 +144,7 @@
 	</div>
 	<!-- //header container -->
 	<!-- //header -->
+
 </body>
 
 </html>
