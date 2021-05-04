@@ -38,7 +38,7 @@ public class UserController extends BaseController {
 	public String show(@PathVariable("id") int id, Model model, HttpServletRequest request,
 			final RedirectAttributes redirectAttributes) {
 		MyUser currentUser = loadCurrentUser();
-		if (currentUser.getId() != id) {
+		if (currentUser== null || currentUser.getId() != id) {
 			return "redirect:/login?accessDenied";
 		}
 		User user = userService.findById(currentUser.getId());
@@ -60,12 +60,13 @@ public class UserController extends BaseController {
 		user.setAddress(userUpdate.getAddress());
 		user.setAvatar(userUpdate.getAvatar());
 		user.setPhone(userUpdate.getPhone());
+		user.setFullname(userUpdate.getFullname());
 
 		if (userService.saveOrUpdate(user) == null) {
 			return handleRedirect(redirectAttributes, typeCss, message, "/users/" + user.getId());
 		}
-
-		typeCss = "sucess";
+		
+		typeCss = "success";
 		message = msg_success_update;
 		return handleRedirect(redirectAttributes, typeCss, message, "/users/" + user.getId());
 	}
