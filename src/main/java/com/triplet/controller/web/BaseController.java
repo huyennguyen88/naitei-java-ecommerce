@@ -1,22 +1,48 @@
 package com.triplet.controller.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.triplet.bean.ProductInfo;
+import com.triplet.model.Product;
+import com.triplet.model.Rate;
+import com.triplet.service.CategoryService;
+import com.triplet.service.ProductService;
+import com.triplet.service.RateService;
+import com.triplet.service.UserService;
 import com.triplet.service.impl.BaseServiceImpl;
 import com.triplet.service.impl.MyUser;
 
 public abstract class BaseController {
+	@Autowired
+	protected RateService rateService;
+
+	@Autowired
+	protected ProductService productService;
+
+	@Autowired
+	protected UserService userService;
+
+	@Autowired
+	protected CategoryService categoryService;
+
 	protected MyUser loadCurrentUser() {
-		MyUser user = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication instanceof AnonymousAuthenticationToken)
+			return null;
+		MyUser user = (MyUser) authentication.getPrincipal();
 		return user;
 	}
 
@@ -43,5 +69,16 @@ public abstract class BaseController {
 		model.addAttribute("url", url);
 		model.addAttribute("currentPage", currentPage);
 		return returnEndpoint;
+	}
+
+	protected List<ProductInfo> generateProductInfos(List<Product> products) {
+		List<ProductInfo> productInfos = new ArrayList<>();
+		for (Product product : products) {
+			List<Rate> rates = rateService.loadRatings(product.getId());
+			product.setRates(rates);
+			ProductInfo proInfo = new ProductInfo(product);
+			productInfos.add(proInfo);
+		}
+		return productInfos;
 	}
 }

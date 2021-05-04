@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
@@ -25,8 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.triplet.bean.UserInfo;
 import com.triplet.model.Category;
 import com.triplet.model.User;
-import com.triplet.service.CategoryService;
-import com.triplet.service.UserService;
 import com.triplet.utils.AuthFacebookUtils;
 import com.triplet.validate.UserValidation;
 
@@ -34,12 +31,6 @@ import com.triplet.validate.UserValidation;
 @Controller
 public class HomeController extends BaseController {
 	private static final Logger logger = Logger.getLogger(HomeController.class);
-
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private CategoryService categoryService;
 
 	@Value("${msg_error_username_or_email}")
 	private String msg_error_username_or_email;
@@ -50,7 +41,7 @@ public class HomeController extends BaseController {
 	@GetMapping(value = { "/", "/welcome" })
 	public String index(Model model, HttpSession session) {
 		logger.info("home page");
-		
+
 		List<Category> roots = categoryService.getRoots();
 		session.setAttribute("roots", roots);
 		return "views/web/home/index";
@@ -120,12 +111,12 @@ public class HomeController extends BaseController {
 		AuthFacebookUtils authFacebookUtils = new AuthFacebookUtils();
 		authFacebookUtils.SetAuthentication(user);
 
-		return "views/web/home/index";	
+		return "views/web/home/index";
 	}
-	
+
 	@GetMapping("/contact")
 	public String showContact() {
 		return "views/web/contact/contact";
 	}
-	
+
 }

@@ -1,0 +1,77 @@
+.comment-widgets {
+    position: relative;
+    margin-bottom: 10px
+}
+
+.comment-widgets .comment-row {
+    border-bottom: 1px solid transparent;
+    padding: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 10px 0
+}
+.comment-text {
+    padding-left: 15px
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.76563rem;
+    line-height: 1.5;
+    border-radius: 1px
+}
+
+.btn-cyan {
+    color: #fff;
+    background-color: #27a9e3;
+    border-color: #27a9e3
+}
+
+.btn-cyan:hover {
+    color: #fff;
+    background-color: #1a93ca;
+    border-color: #198bbe
+}
+
+.comment-widgets .comment-row:hover {
+    background: rgba(0, 0, 0, 0.05)
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: orange;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
