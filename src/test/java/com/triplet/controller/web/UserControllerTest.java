@@ -16,7 +16,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -30,7 +29,6 @@ import factories.model.UserFake;
 import io.florianlopes.spring.test.web.servlet.request.MockMvcRequestBuilderUtils;
 
 @RunWith(MockitoJUnitRunner.class)
-@TestPropertySource(properties = { "msg_success_update=Update successfully!"})
 class UserControllerTest {
 
 	private MockMvc mockMvc;
