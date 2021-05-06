@@ -1,30 +1,18 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
-<head>
-	<link th:href="@{/assets/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-	<link
-		th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i}"
-		rel="stylesheet">
-	<link th:href="@{/assets/admin/css/sb-admin-2.min.css}" rel="stylesheet">
-
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
 	<!-- Top bar -->
 	<nav th:fragment="topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
 		<!-- Side bar Toggle (Top bar) -->
 		<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
 			<i class="fa fa-bars"></i>
 		</button>
 		<!-- Top bar Navigation bar -->
 		<ul class="navbar-nav ml-auto">
-
 			<div class="topbar-divider d-none d-sm-block"></div>
-
 			<!-- Navigation Item - User Information -->
-
 			<li sec:authorize="isAuthenticated()" class="nav-item dropdown no-arrow">
 				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false">
@@ -40,19 +28,15 @@
 						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						Logout
 					</a>
-
 				</div>
 			</li>
-
 			<li sec:authorize="!isAuthenticated()" class="nav-item dropdown no-arrow">
 				<a th:href="@{/login}" class="nav-link dropdown-toggle" id="userDropdown" role="button"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
 				</a> <!-- Drop down - User Information -->
 			</li>
-
 		</ul>
-
 	</nav>
 	<!-- End of Top bar -->
 </body>
