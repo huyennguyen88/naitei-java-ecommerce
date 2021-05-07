@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.triplet.dao.CategoryDAO;
 import com.triplet.dao.ProductDAO;
+import com.triplet.dao.RateDAO;
 import com.triplet.dao.UserDAO;
 
 public class BaseServiceImpl {
@@ -23,6 +24,9 @@ public class BaseServiceImpl {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired
+	private RateDAO rateDAO;
 
 	public UserDAO getUserDAO() {
 		return userDAO;
@@ -48,6 +52,14 @@ public class BaseServiceImpl {
 		this.categoryDAO = categoryDAO;
 	}
 	
+	public RateDAO getRateDAO() {
+		return rateDAO;
+	}
+
+	public void setRateDAO(RateDAO rateDAO) {
+		this.rateDAO = rateDAO;
+	}
+
 	public static <T> Page<T> findPaginationBase(Pageable pageable, List<T> objects){
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();

@@ -46,9 +46,6 @@ public class Product {
 	@Column(name = "price", nullable = false)
 	private BigDecimal price;
 
-	@Column(name = "rate_avg")
-	private double rate_avg;
-
 	@Column(name = "create_time", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -69,7 +66,7 @@ public class Product {
 
 	@OneToMany(mappedBy = "product")
 	private List<Rate> rates;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -116,14 +113,6 @@ public class Product {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
-	}
-
-	public double getRate_avg() {
-		return rate_avg;
-	}
-
-	public void setRate_avg(double rate_avg) {
-		this.rate_avg = rate_avg;
 	}
 
 	public Date getCreate_time() {

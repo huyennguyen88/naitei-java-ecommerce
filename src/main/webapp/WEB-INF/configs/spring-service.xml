@@ -40,5 +40,13 @@
 				<property name="categoryDAO" ref="CategoryDAO" />
 			</bean>
 		</property>
+		
+	</bean>	
+		<bean id="rateService" parent="baseTransactionProxy">
+		<property name="target">
+			<bean class="com.triplet.service.impl.RateServiceImpl">
+				<property name="rateDAO" ref="RateDAO" />
+			</bean>
+		</property>
 	</bean>	
 </beans>

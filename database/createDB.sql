@@ -59,7 +59,6 @@ CREATE TABLE `Products` (
 	`quantity` INT NOT NULL,
 	`price` decimal(15,0) NOT NULL,
 	`category_id` INT NOT NULL,
-	`rate_avg` double,
     `create_time` timestamp default current_timestamp,
     `update_time` timestamp default current_timestamp on update current_timestamp,
     `delete_time` timestamp null,

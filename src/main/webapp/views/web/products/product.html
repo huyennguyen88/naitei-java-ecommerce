@@ -11,6 +11,7 @@
 	<link th:href="@{/assets/web/css/flexslider.css}" media="all" rel="stylesheet">
 	<link th:href="@{/assets/web/css/stars.css}" rel="stylesheet" type="text/css" media="all">
 	<link th:href="@{/assets/web/css/bootstrap-rating.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/assets/web/css/comment.css}" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -18,8 +19,14 @@
 	<!--/* Header fragment */-->
 	<section layout:fragment="content">
 		<div th:replace="views/web/layout/banner :: banner-shared"></div>
-		<!-- signin Modal -->
 		<div id="productContent">
+			<div th:if="${msg != null}" class="alert alert-dismissible "
+				th:classappend="${css == 'error' ? 'alert-danger' : 'alert-success'}" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong><span th:text="${msg}"></span></strong>
+			</div>
 			<!-- Single -->
 			<div class="innerf-pages section py-5">
 				<div class="container">
@@ -42,37 +49,27 @@
 						</div>
 						<div class="col-lg-8 mt-lg-0 mt-5 single-right-left simpleCart_shelfItem">
 							<h3 th:text="${product.name}"></h3>
-							<div class="caption">
-
-								<div>
-									<!--First Star-->
-									<i class="fa fa-star-o checkedStar" th:if="${product.rate_avg == 0}"></i> <i
-										class="fa fa-star-half-o checkedStar"
-										th:if="${product.rate_avg > 0 && product.rate_avg < 1}"></i> <i
-										class="fa fa-star checkedStar" th:if="${product.rate_avg >= 1}"></i>
-									<!--Second Star-->
-									<i class="fa fa-star-o checkedStar" th:if="${product.rate_avg <= 1}"></i> <i
-										class="fa fa-star-half-o checkedStar"
-										th:if="${product.rate_avg > 1 && product.rate_avg < 2}"></i> <i
-										class="fa fa-star checkedStar" th:if="${product.rate_avg >= 2}"></i>
-									<!--Third Star-->
-									<i class="fa fa-star-o checkedStar" th:if="${product.rate_avg <= 2}"></i> <i
-										class="fa fa-star-half-o checkedStar"
-										th:if="${product.rate_avg > 2 && product.rate_avg < 3}"></i> <i
-										class="fa fa-star checkedStar" th:if="${product.rate_avg >= 3}"></i>
-									<!--Fourth Star-->
-									<i class="fa fa-star-o checkedStar" th:if="${product.rate_avg <= 3}"></i> <i
-										class="fa fa-star-half-o checkedStar"
-										th:if="${product.rate_avg > 3 && product.rate_avg < 4}"></i> <i
-										class="fa fa-star checkedStar" th:if="${product.rate_avg >= 4}"></i>
-									<!--Fifth Star-->
-									<i class="fa fa-star-o checkedStar" th:if="${product.rate_avg <= 4}"></i> <i
-										class="fa fa-star-half-o checkedStar"
-										th:if="${product.rate_avg > 4 && product.rate_avg < 5}"></i> <i
-										class="fa fa-star checkedStar" th:if="${product.rate_avg == 5}"></i>
-
+							<div th:unless="${rates.empty}" class="caption">
+								<div id="rate-star" style="cursor: pointer;" class="py-2">
+									<!--Star-->
+									<div>
+										<span th:unless="${rates.empty}" th:each="i : ${#numbers.sequence(1, 5)}">
+											<i th:if="${product.rate_avg <= i-1 }" class="far fa-star checkedStar"></i>
+											<i th:if="${product.rate_avg > i-1 &&  product.rate_avg < i}"
+												class="fas fa-star-half-alt checkedStar"></i>
+											<i th:if="${product.rate_avg >= i}" class="fas fa-star checkedStar"></i>
+										</span>
+										<span th:if="${rates.empty}" th:each="i : ${#numbers.sequence(1, 5)}"
+											class="far fa-star checkedStar">
+										</span>
+									</div>
+									<!--//Star-->
+									<span th:text="'('+${#lists.size(rates)}" class="text-warning"></span>
+									<span th:if="${#lists.size(rates)>1}" th:text="reviews+')'"
+										class="text-warning"></span>
+									<span th:if="${#lists.size(rates)<=1}" th:text="review+')'"
+										class="text-warning"></span>
 								</div>
-
 								<div class="clearfix"></div>
 								<h6>
 									<span th:text="${product.price}" style="color: red;"></span>
@@ -137,6 +134,155 @@
 										</button>
 									</form>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div id="rate-tab" class="row d-flex justify-content-center mt-2 mb-2">
+						<div class="col-lg-12">
+							<div class="card">
+								<div class="card-body text-center">
+									<h4 class="card-title">Reviews
+										<span th:text="' ('+ ${#lists.size(rates)}+')'"></span>
+									</h4>
+								</div>
+								<!--Rate perscentage-->
+								<div class="comment-widgets">
+									<div class="d-flex flex-row comment-row">
+										<div class="col-2 text-center">
+											<h1 th:unless="${rates.empty}" class="font-weight-bold"
+												th:text="${product.rate_avg}+'/5'">
+											</h1>
+											<h1 th:if="${rates.empty}" class="font-weight-bold" th:text="0/5"></h1>
+											<div>
+												<span th:unless="${rates.empty}"
+													th:each="i : ${#numbers.sequence(1, 5)}">
+													<i th:if="${product.rate_avg <= i-1 }"
+														class="far fa-star checkedStar"></i>
+													<i th:if="${product.rate_avg > i-1 &&  product.rate_avg < i}"
+														class="fas fa-star-half-alt checkedStar"></i>
+													<i th:if="${product.rate_avg >= i}"
+														class="fas fa-star checkedStar"></i>
+												</span>
+												<span th:if="${rates.empty}" th:each="i : ${#numbers.sequence(1, 5)}"
+													class="far fa-star checkedStar">
+												</span>
+											</div>
+											<div>
+												<span th:text="${#lists.size(rates)}"></span>
+												<span th:if="${#lists.size(rates)>1}" th:text="reviews"></span>
+												<span th:if="${#lists.size(rates)<=1}" th:text="review"></span>
+											</div>
+										</div>
+										<div class="col-6">
+											<div th:each="percentValue, iter : ${ratesPercent}"
+												class="row align-items-center">
+												<p th:text="${#lists.size(ratesPercent) - iter.index} + ' sao'"
+													class="col-1 px-0 py-0 text-right">
+												</p>
+												<div class="col-10">
+													<div class="progress " style="height: 6px;">
+														<div class="progress-bar bg-warning" role="progressbar"
+															th:attr="aria-valuenow=${percentValue}"
+															th:style="'width:'+ ${percentValue}+'%;'" aria-valuemin="0"
+															aria-valuemax="100">
+														</div>
+													</div>
+												</div>
+												<p th:text="${percentValue}+'%'" class="col-1 px-0 py-0 text-left"></p>
+											</div>
+										</div>
+										<div class="col-4 text-center d-flex align-items-center justify-content-center">
+											<p sec:authorize="isAnonymous()">Please<a th:text="' '+login+' '"
+													th:href="@{/login}"></a>or<a th:text="' '+register+' '"
+													th:href="@{/register}"></a> to add comment!</p>
+											<button sec:authorize="isAuthenticated()" id="toggleReviewButton"
+												type="button" class="btn btn-warning" data-toggle="collapse"
+												href="#collapseReview" role="button" aria-expanded="false"
+												aria-controls="collapseExample">Add your review!</button>
+										</div>
+									</div>
+								</div>
+								<!--//Rate percentage-->
+								<hr>
+								<!--Add review form-->
+								<div sec:authorize="isAuthenticated()" class="collapse" id="collapseReview">
+									<div class="card card-body">
+										<form th:object="${rateInfo}"
+											th:action="@{/rates/{id}/save-or-update(id=${rateInfo.id}, productId=${product.id})}"
+											method="POST">
+											<input th:field="*{productId}" th:value="${product.id}" hidden="true">
+											<input th:field="*{userId}"
+												th:value="${#authentication.getPrincipal().getId()}" hidden="true">
+											<input th:field="*{id}" th:value="*{id}" hidden="true">
+											<div class="form-group">
+												<div>
+													How much you rate this product?
+												</div>
+												<div class="rate">
+													<input type="radio" id="star5" name="rate" th:field="*{value}"
+														th:value="${T(com.triplet.model.Rate.Value).FIVE}" />
+													<label for="star5" title="text">5 stars</label>
+													<input type="radio" id="star4" name="rate" th:field="*{value}"
+														th:value="${T(com.triplet.model.Rate.Value).FOUR}" />
+													<label for="star4" title="text">4 stars</label>
+													<input type="radio" id="star3" name="rate" th:field="*{value}"
+														th:value="${T(com.triplet.model.Rate.Value).THREE}" />
+													<label for="star3" title="text">3 stars</label>
+													<input type="radio" id="star2" name="rate" th:field="*{value}"
+														th:value="${T(com.triplet.model.Rate.Value).TWO}" />
+													<label for="star2" title="text">2 stars</label>
+													<input type="radio" id="star1" name="rate" th:field="*{value}"
+														th:value="${T(com.triplet.model.Rate.Value).ONE}" />
+													<label for="star1" title="text">1 star</label>
+												</div>
+											</div>
+
+											<div class="form-group">
+												<textarea class="form-control" rows="3"
+													placeholder="Your comment about this product" th:field="*{content}"
+													required></textarea>
+											</div>
+											<div class=" d-flex justify-content-center">
+												<button type="submit" class="btn btn-warning">Send your review!</button>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!--//Add review form-->
+
+								<!--Rate content-->
+								<div class="comment-widgets">
+									<div th:each="rate : ${rates}" class="d-flex flex-row comment-row">
+										<div class=" py-2 col-2 text-center">
+											<img th:src="@{https://i.imgur.com/Ur43esv.jpg}" alt="user" width="50"
+												class="rounded-circle text-center">
+											<h6 th:text="${rate.user.username}"
+												class="font-weight-bold py-2 text-center"></h6>
+										</div>
+										<div class="comment-text w-100">
+											<div th:if="${rate.value!=nuLL}">
+												<span th:each="i : ${#numbers.sequence(0, rate.value)}"
+													class="fa fa-star checkedStar"></span>
+											</div>
+											<p><small th:text="${rate.update_time}" class="font-weight-light"></small>
+											</p>
+											<span th:text="${rate.content}"
+												class="my-2 d-block font-weight-light"></span>
+											<div class="comment-footer">
+												<div sec:authorize="isAuthenticated()"
+													th:if="${#authentication.getPrincipal().getId() == rate.user.id }">
+													<button type="button" class="btn btn-cyan btn-sm"
+														data-toggle="collapse" href="#collapseReview" role="button"
+														aria-expanded="false">Edit</button>
+													<a th:href="@{/rates/{id}/delete(id=${rate.id})}"><button
+															type="button"
+															class="btn btn-danger btn-sm">Delete</button></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- //Rate content-->
 							</div>
 						</div>
 					</div>

@@ -3,7 +3,6 @@ package com.triplet.controller.web;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
@@ -17,16 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.triplet.bean.UserInfo;
 import com.triplet.model.User;
-import com.triplet.service.UserService;
 import com.triplet.service.impl.MyUser;
 
 @PropertySource("classpath:messages.properties")
 @Controller
 @RequestMapping("/users")
 public class UserController extends BaseController {
-
-	@Autowired
-	UserService userService;
 
 	@Value("${msg_success_update}")
 	private String msg_success_update;
@@ -38,7 +33,7 @@ public class UserController extends BaseController {
 	public String show(@PathVariable("id") int id, Model model, HttpServletRequest request,
 			final RedirectAttributes redirectAttributes) {
 		MyUser currentUser = loadCurrentUser();
-		if (currentUser== null || currentUser.getId() != id) {
+		if (currentUser == null || currentUser.getId() != id) {
 			return "redirect:/login?accessDenied";
 		}
 		User user = userService.findById(currentUser.getId());
@@ -65,7 +60,7 @@ public class UserController extends BaseController {
 		if (userService.saveOrUpdate(user) == null) {
 			return handleRedirect(redirectAttributes, typeCss, message, "/users/" + user.getId());
 		}
-		
+
 		typeCss = "success";
 		message = msg_success_update;
 		return handleRedirect(redirectAttributes, typeCss, message, "/users/" + user.getId());
@@ -85,5 +80,4 @@ public class UserController extends BaseController {
 		userInfo.getAddresses().remove(rowId.intValue());
 		return "views/web/users/user";
 	}
-
 }

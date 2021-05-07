@@ -18,7 +18,13 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="CategoryDAO" class="com.triplet.dao.impl.CategoryDAOImpl">
+	<bean id="CategoryDAO"
+		class="com.triplet.dao.impl.CategoryDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="RateDAO"
+		class="com.triplet.dao.impl.RateDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
