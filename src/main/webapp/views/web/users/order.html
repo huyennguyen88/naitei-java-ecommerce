@@ -18,9 +18,18 @@
                 </div>
                 <div th:if="${orderInfo!=null}" class="card w-75">
                     <div class="card-header ">
-                        <div>
-                            <span class="h4 mr-2">Order detail</span>
-                            <span th:text="'#'+ ${orderInfo.id}"></span>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <span class="h4 mr-2">Order detail</span>
+                                <span th:text="'#OD00'+ ${orderInfo.id}"></span>
+                            </div>
+                            <div>
+                                <a th:if="${orderInfo.status == T(com.triplet.model.Order.Status).PENDING}"
+                                    th:href="@{/orders/{id}/cancel(id=${orderInfo.id})}" class="btn btn-outline-warning"
+                                    type="button" role="button">Cancel order
+                                    <i class="pl-2 far fa-times-circle"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    layout:decorate="~{views/admin/layout/base-layout.html}">
+
+<head>
+    <title>Order Detail</title>
+</head>
+
+<body id="page-top">
+    <section layout:fragment="content">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Order detail</h1>
+        </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <span th:text="${'Order  #OD00'+ orderInfo.id}"></span><span class="mx-2">|</span>
+                <span th:text="${orderInfo.status}" class="m-0 h6 font-weight-bold text-primary"></span>
+            </div>
+            <div th:with="items = ${orderInfo.items}" class="card-body">
+                <ul class="list-unstyled">
+                    <th:block th:each="item,iter : ${items}" th:if="${item.quantity}>0">
+                        <li class="media">
+                            <div>
+                                <img th:src="@{'/assets/images/'+${item.image}}" alt="img"
+                                    class="w-25 h-25 p-3 img-responsive img-thumbnail rounded">
+                            </div>
+
+                            <div class="media-body">
+                                <h5 th:text="${item.name}" class="mt-0 mb-1"></h5>
+                                <h6 class="text-info font-italic" th:text="${item.formatPrice}"></h6>
+                                <p th:text="${'x'+ item.quantity}"></p>
+                            </div>
+                        </li>
+                        <hr>
+                    </th:block>
+                    <li class="container">
+                        <div class="row justify-content-between">
+                            <div>
+                                <span class="font-weight-light">Order at: </span><span class="ml-2"
+                                    th:text="${orderInfo.create_time}"></span>
+                            </div>
+                            <div>
+                                <span class="text-mute">Total price:</span><span class="ml-2 text-primary h3"
+                                    th:text="${orderInfo.formatPriceTotal}"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="h4 font-weight-bold text-info">Shipping Address</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="m-0">From:</p>
+                                <a th:href="@{/admin/users/{id}(id=${orderInfo.user.id})}" class="m-0"
+                                    th:text="${'ID: #US00'+ orderInfo.user.id}"></a>
+                                <p class="m-0" th:text="${orderInfo.user.fullname}"></p>
+                                <p class="m-0" th:text="${orderInfo.user.phone}"></p>
+                                <p class="m-0" th:text="${orderInfo.user.address}"></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>To:</p>
+                                <p class="m-0" th:text="${orderInfo.ship.fullname}"></p>
+                                <p class="m-0" th:text="${orderInfo.ship.phone}"></p>
+                                <p class="m-0" th:text="${orderInfo.ship.address}"></p>
+                            </div>
+                        </div>
+                    </li>
+                    <hr>
+                    <li th:if="${orderInfo.status == T(com.triplet.model.Order.Status).PENDING}" class="text-right">
+                        <a class="btn btn-outline-success "
+                            th:href="@{/admin/orders/{id}/update-status(id=${orderInfo.id},action=1)}"
+                            role="button">ACCEPT
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a class="btn btn-outline-danger "
+                            th:href="@{/admin/orders/{id}/update-status(id=${orderInfo.id},action=2)}"
+                            role="button">REJECT
+                            <i class="far fa-times-circle"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

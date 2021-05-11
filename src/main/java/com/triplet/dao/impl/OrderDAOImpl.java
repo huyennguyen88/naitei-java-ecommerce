@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import com.triplet.dao.GenericDAO;
 import com.triplet.dao.OrderDAO;
 import com.triplet.model.Order;
+import com.triplet.model.Order.Status;
 
 public class OrderDAOImpl extends GenericDAO<Integer, Order> implements OrderDAO {
 	public OrderDAOImpl() {
@@ -24,4 +25,16 @@ public class OrderDAOImpl extends GenericDAO<Integer, Order> implements OrderDAO
 				.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> loadOrders() {
+		return getSession().createQuery("from Order").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Order> loadByStatus(Status status) {
+		return (List<Order>) getSession().createQuery("FROM Order where status =: status ")
+				.setParameter("status", status).getResultList();
+	}
 }

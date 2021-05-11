@@ -21,7 +21,7 @@
                         My orders
                     </div>
                     <div class="text-center" th:if="${orderInfos.empty}">
-                        Your orders is empty, 
+                        Your orders is empty,
                         <a class="text-info" th:href="@{/}">shopping now</a>
                     </div>
                     <table th:unless="${orderInfos.empty}" class="table table-striped">
@@ -35,7 +35,8 @@
                         </thead>
                         <tbody>
                             <tr th:each="order : ${orderInfos}">
-                                <th scope="row"><a th:href="@{/orders/{id}(id=${order.id})}" th:text="${order.id}"></a>
+                                <th scope="row"><a th:href="@{/orders/{id}(id=${order.id})}"
+                                        th:text="${'#OD00'+ order.id}"></a>
                                 </th>
                                 <td th:text="${order.create_time}"></td>
                                 <td th:text="${order.formatPriceTotal}"></td>

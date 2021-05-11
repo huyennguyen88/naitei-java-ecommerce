@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    layout:decorate="~{views/admin/layout/base-layout.html}">
+
+<head>
+    <title>Manage Orders</title>
+
+    <link th:href="@{/assets/admin/vendor/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+    <section layout:fragment="content">
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Manage Orders</h1>
+        </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" th:href="@{/admin/orders}">ALL</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" th:href="@{/admin/orders(stt=0)}">PENDING</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" th:href="@{/admin/orders(stt=1)}"> ACCEPTED</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" th:href="@{/admin/orders(stt=2)}">REJECTED</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" th:href="@{/admin/orders(stt=3)}">CANCELED</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Customer's name</th>
+                                <th>Receiver's name</th>
+                                <th>Receiver's address</th>
+                                <th>Order date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>Customer's name</th>
+                                <th>Receiver's name</th>
+                                <th>Receiver's address</th>
+                                <th>Order date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+
+                        <tbody th:if="${orders!=null}">
+                            <th:block th:each="order, iter : ${orders}">
+                                <tr>
+                                    <td th:text="${iter.index+1}"></td>
+                                    <td th:text="${'OD00'+ order.id}"></td>
+                                    <td th:text="${order.user.fullname}"></td>
+                                    <td th:text="${order.receiver_name}"></td>
+                                    <td th:text="${order.receiver_address}"></td>
+                                    <td th:text="${order.create_time}"></td>
+                                    <td>
+                                        <span th:if="${order.status == T(com.triplet.model.Order.Status).PENDING}"
+                                            th:text="${order.status}" class="badge badge-pill badge-danger"></span>
+                                        <span th:if="${order.status == T(com.triplet.model.Order.Status).ACCEPTED}"
+                                            th:text="${order.status}" class="badge badge-pill badge-success"></span>
+                                        <span th:if="${order.status == T(com.triplet.model.Order.Status).REJECTED}"
+                                            th:text="${order.status}" class="badge badge-pill badge-warning"></span>
+                                        <span th:if="${order.status == T(com.triplet.model.Order.Status).CANCELED}"
+                                            th:text="${order.status}" class="badge badge-pill badge-secondary"></span>
+                                    </td>
+                                    <td>
+                                        <div class="text-center d-flex flex-column">
+                                            <a th:href="@{/admin/orders/{id}(id=${order.id})}"
+                                                class="m-1 btn btn-info btn-circle">
+                                                <i class="fas fa-info-circle"></i>
+                                            </a>
+                                            <a th:if="${order.status == T(com.triplet.model.Order.Status).PENDING}"
+                                                th:href="@{/admin/orders/{id}/update-status(id=${order.id},action=1)}"
+                                                class="m-1 btn btn-success btn-circle">
+                                                <i class="fas fa-check"></i>
+                                            </a>
+                                            <a th:if="${order.status == T(com.triplet.model.Order.Status).PENDING}"
+                                                th:href="@{/admin/orders/{id}/update-status(id=${order.id},action=2)}"
+                                                class="m-1 btn btn-danger btn-circle">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </th:block>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

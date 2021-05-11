@@ -36,12 +36,18 @@ public class OrderController extends BaseController {
 	@Value("${msg_success_order_add}")
 	private String msg_success_order_add;
 
+	@Value("${msg_error_update}")
+	private String msg_error_update;
+
+	@Value("${msg_success_update}")
+	private String msg_success_update;
+
 	@GetMapping(value = { "/", "" })
 	public String loadOrders(Model model) {
 		MyUser user = loadCurrentUser();
 		List<Order> orders = orderService.loadByUserId(user.getId());
 		List<OrderInfo> orderInfos = new ArrayList<OrderInfo>();
-		if(!orders.isEmpty()) {
+		if (!orders.isEmpty()) {
 			orderInfos = OrderInfo.ordersToOrderInfos(orders);
 		}
 		model.addAttribute("orderInfos", orderInfos);
@@ -51,8 +57,14 @@ public class OrderController extends BaseController {
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") int id, final RedirectAttributes redirectAttributes, Model model) {
 		Order order = orderService.findById(id);
+		MyUser user = loadCurrentUser();
+
+		if (order.getUser().getId() != user.getId()) {
+			return "redirect:/accessDenied";
+		}
+
 		List<OrderItem> orderItems = orderItemService.loadByOrderId(id);
-		
+
 		List<Item> items = Item.toItems(orderItems);
 		OrderInfo orderInfo = new OrderInfo(order);
 		orderInfo.setItems(items);
@@ -103,5 +115,23 @@ public class OrderController extends BaseController {
 			return handleRedirect(redirectAttributes, typeCss, message, "/orders");
 		}
 		return handleRedirect(redirectAttributes, typeCss, message, "/cart/detail");
+	}
+
+	@GetMapping("/{id}/cancel")
+	public String cancelOrder(@PathVariable("id") int id, Model model, final RedirectAttributes redirectAttributes) {
+		String typeCss = "error";
+		String message = msg_error_update;
+
+		MyUser user = loadCurrentUser();
+		Order order = orderService.findById(id);
+
+		if (order.getUser().getId() != user.getId()) {
+			return "redirect:/accessDenied";
+		}
+		if (orderService.updateStatus(id, 3)) {
+			typeCss = "sucsess";
+			message = msg_success_update;
+		}
+		return handleRedirect(redirectAttributes, typeCss, message, "/orders/" + id);
 	}
 }

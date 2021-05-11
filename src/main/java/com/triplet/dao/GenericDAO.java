@@ -3,6 +3,7 @@ package com.triplet.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,14 @@ public abstract class GenericDAO<PK extends Serializable, T> extends HibernateDa
 
 	public T findById(Serializable key) {
 		return (T) getSession().get(getPersistentClass(), key);
+	}
+
+	public  T find(Serializable id, boolean lock)  {
+		if (lock) {
+			return getSession().load(getPersistentClass(), id, LockMode.PESSIMISTIC_READ);
+		} else {
+			return getSession().get(getPersistentClass(), id);
+		}
 	}
 
 	public void persist(T entity) {
