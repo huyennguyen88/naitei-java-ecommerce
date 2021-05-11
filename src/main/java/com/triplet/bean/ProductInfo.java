@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.triplet.model.Product;
 import com.triplet.model.Rate;
+import com.triplet.utils.FormatUtils;
 
 public class ProductInfo {
 	private int id;
@@ -19,6 +20,8 @@ public class ProductInfo {
 	private int quantity;
 
 	private BigDecimal price;
+	
+	private String formatPrice;
 
 	private double rate_avg;
 
@@ -33,6 +36,9 @@ public class ProductInfo {
 		this.images = Arrays.asList(product.getImage().split("/"));
 		this.descriptions = Arrays.asList(product.getDescription().split("/"));
 		this.num_rates = product.getRates().size();
+		
+		FormatUtils formatUtils = new FormatUtils();
+		this.formatPrice = formatUtils.formatCurrency(this.price);
 	}
 
 	public int getId() {
@@ -81,6 +87,14 @@ public class ProductInfo {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public String getFormatPrice() {
+		return formatPrice;
+	}
+
+	public void setFormatPrice(String formatPrice) {
+		this.formatPrice = formatPrice;
 	}
 
 	public int getNum_rates() {

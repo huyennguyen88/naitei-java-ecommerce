@@ -19,6 +19,8 @@ import com.triplet.bean.ProductInfo;
 import com.triplet.model.Product;
 import com.triplet.model.Rate;
 import com.triplet.service.CategoryService;
+import com.triplet.service.OrderItemService;
+import com.triplet.service.OrderService;
 import com.triplet.service.ProductService;
 import com.triplet.service.RateService;
 import com.triplet.service.UserService;
@@ -37,7 +39,13 @@ public abstract class BaseController {
 
 	@Autowired
 	protected CategoryService categoryService;
-
+	
+	@Autowired
+	protected OrderService orderService;
+	
+	@Autowired
+	protected OrderItemService orderItemService;
+	
 	protected MyUser loadCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken)

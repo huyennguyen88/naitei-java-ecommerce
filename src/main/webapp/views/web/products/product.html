@@ -19,14 +19,8 @@
 	<!--/* Header fragment */-->
 	<section layout:fragment="content">
 		<div th:replace="views/web/layout/banner :: banner-shared"></div>
+		<div th:replace="views/web/layout/cart-modal :: cart-modal "></div>
 		<div id="productContent">
-			<div th:if="${msg != null}" class="alert alert-dismissible "
-				th:classappend="${css == 'error' ? 'alert-danger' : 'alert-success'}" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong><span th:text="${msg}"></span></strong>
-			</div>
 			<!-- Single -->
 			<div class="innerf-pages section py-5">
 				<div class="container">
@@ -49,8 +43,8 @@
 						</div>
 						<div class="col-lg-8 mt-lg-0 mt-5 single-right-left simpleCart_shelfItem">
 							<h3 th:text="${product.name}"></h3>
-							<div th:unless="${rates.empty}" class="caption">
-								<div id="rate-star" style="cursor: pointer;" class="py-2">
+							<div class="caption">
+								<div th:unless="${rates.empty}" id="rate-star" style="cursor: pointer;" class="py-2">
 									<!--Star-->
 									<div>
 										<span th:unless="${rates.empty}" th:each="i : ${#numbers.sequence(1, 5)}">
@@ -72,7 +66,7 @@
 								</div>
 								<div class="clearfix"></div>
 								<h6>
-									<span th:text="${product.price}" style="color: red;"></span>
+									<span class="text-danger" th:text="${product.formatPrice}"></span>
 								</h6>
 							</div>
 							<div class="desc_single">
@@ -126,13 +120,11 @@
 							</div>
 							<div class="occasion-cart">
 								<div class="chr single-item single_page_b">
-									<form th:action="@{/cart/add(productId=${product.id},quantity=${quantity})}">
-										<input th:name="productId" type="hidden" th:value="${product.id}" /> <input
-											th:name="quantity" type="hidden" th:value="1" />
-										<button type="submit" class="hub-cart phub-cart btn">
-											<i class="fa fa-cart-plus" aria-hidden="true"></i>
-										</button>
-									</form>
+                                    <a th:href="@{/cart/add/{id}(id=${product.id})}">
+                                        <button type="submit" class="hub-cart phub-cart btn">
+                                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
 								</div>
 							</div>
 						</div>

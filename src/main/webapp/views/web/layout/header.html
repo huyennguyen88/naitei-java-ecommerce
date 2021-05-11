@@ -66,6 +66,8 @@
 														<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item"
 															th:href="@{/dashboard}" th:text="#{dashboard}"></a>
 														<a class="dropdown-item"
+															th:href="@{/orders}">My orders</a>	
+														<a class="dropdown-item"
 															th:href="@{/users/{id}(id=${#authentication.getPrincipal().getId()})}"
 															th:text="#{profile}"></a>
 														<a class="dropdown-item" th:href="@{/logout}"
@@ -80,15 +82,12 @@
 						</nav>
 					</div>
 					<!-- shopping cart -->
-					<div class="cart-mainf">
+					<div th:if="${session.cart!=null}" class="cart-mainf">
 						<div class="hubcart hubcart2 cart cart box_1">
-							<form action="#" method="post">
-								<input type="hidden" name="cmd" value="_cart">
-								<input type="hidden" name="display" value="1">
-								<button class="btn top_hub_cart mt-1" type="submit" name="submit" value="" title="Cart">
-									<i class="fas fa-shopping-bag"></i>
-								</button>
-							</form>
+							<a th:href="@{/cart/detail}" class="btn btn-light top_hub_cart mt-1" role="button">
+								<i class="fas fa-shopping-bag"></i>
+								<span th:text="${session.cart.itemQuantity}" class="badge badge-light"></span>
+							</a>
 						</div>
 					</div>
 					<!-- //shopping cart ends here -->

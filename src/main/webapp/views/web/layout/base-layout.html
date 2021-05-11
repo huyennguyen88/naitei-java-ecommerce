@@ -4,7 +4,7 @@
 <head>
     <!--/*  Title will be replaced by their respective titles in the calling template. */-->
     <title>Base title</title>
- 
+
     <!--/* Common */-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
@@ -88,7 +88,14 @@
     </script>
     <!--/* Header fragment */-->
     <header th:replace="views/web/layout/header :: header"></header>
-
+    
+    <div th:if="${msg != null}" class="alert alert-dismissible "
+        th:classappend="${css == 'error' ? 'alert-danger' : 'alert-success'}" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong><span th:text="${msg}"></span></strong>
+    </div>
     <section layout:fragment="content">
 
     </section>

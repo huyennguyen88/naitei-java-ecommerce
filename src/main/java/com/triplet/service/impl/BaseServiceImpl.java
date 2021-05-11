@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import com.triplet.dao.CategoryDAO;
+import com.triplet.dao.OrderDAO;
+import com.triplet.dao.OrderItemDAO;
 import com.triplet.dao.ProductDAO;
 import com.triplet.dao.RateDAO;
 import com.triplet.dao.UserDAO;
@@ -24,9 +26,15 @@ public class BaseServiceImpl {
 
 	@Autowired
 	private CategoryDAO categoryDAO;
-	
+
 	@Autowired
 	private RateDAO rateDAO;
+
+	@Autowired
+	private OrderDAO orderDAO;
+
+	@Autowired
+	private OrderItemDAO orderItemDAO;
 
 	public UserDAO getUserDAO() {
 		return userDAO;
@@ -51,7 +59,7 @@ public class BaseServiceImpl {
 	public void setCategoryDAO(CategoryDAO categoryDAO) {
 		this.categoryDAO = categoryDAO;
 	}
-	
+
 	public RateDAO getRateDAO() {
 		return rateDAO;
 	}
@@ -60,7 +68,23 @@ public class BaseServiceImpl {
 		this.rateDAO = rateDAO;
 	}
 
-	public static <T> Page<T> findPaginationBase(Pageable pageable, List<T> objects){
+	public OrderDAO getOrderDAO() {
+		return orderDAO;
+	}
+
+	public void setOrderDAO(OrderDAO orderDAO) {
+		this.orderDAO = orderDAO;
+	}
+
+	public OrderItemDAO getOrderItemDAO() {
+		return orderItemDAO;
+	}
+
+	public void setOrderItemDAO(OrderItemDAO orderItemDAO) {
+		this.orderItemDAO = orderItemDAO;
+	}
+
+	public static <T> Page<T> findPaginationBase(Pageable pageable, List<T> objects) {
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;
@@ -69,8 +93,8 @@ public class BaseServiceImpl {
 			int toIndex = Math.min(startItem + pageSize, objects.size());
 			subObjects = objects.subList(startItem, toIndex);
 		}
-		Page<T> objectPage = new PageImpl<T>(subObjects, PageRequest.of(currentPage, pageSize),
-				objects.size());
+		Page<T> objectPage = new PageImpl<T>(subObjects, PageRequest.of(currentPage, pageSize), objects.size());
 		return objectPage;
 	}
+
 }
