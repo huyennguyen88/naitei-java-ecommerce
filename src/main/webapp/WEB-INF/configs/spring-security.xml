@@ -18,11 +18,17 @@
 
 	<http use-expressions="true">
 		<csrf disabled="true" />
-		
+
 		<intercept-url pattern="/admin/**"
 			access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/dashboard"
 			access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/orders/**"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/users/**"
+			access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/rates/**"
+			access="hasRole('ROLE_USER')" />
 
 		<access-denied-handler
 			error-page="/accessDenied" />
@@ -34,8 +40,8 @@
 			username-parameter="username" password-parameter="password" />
 
 		<session-management
-			invalid-session-url="/login?sessionTimeout" />	
-		
+			invalid-session-url="/login?sessionTimeout" />
+
 		<logout logout-url="/logout" delete-cookies="JSESSIONID"
 			invalidate-session="true" />
 	</http>

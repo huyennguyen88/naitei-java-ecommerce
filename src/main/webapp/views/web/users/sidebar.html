@@ -9,12 +9,13 @@
 				<i class="fa fa-dashboard fa-1x"></i>
 			</li>
 			<li>
-				<a th:href="@{/}" class="list-group-item list-group-item-action list-group-item-light  text-left">
+				<a th:href="@{/users/{id}(id=${#authentication.getPrincipal().getId()})}"
+					class="list-group-item list-group-item-action list-group-item-light  text-left">
 					<span class="pull-left"><strong>My Account</strong></span>
 				</a>
 			</li>
 			<li>
-				<a th:href="@{/}" class="list-group-item list-group-item-action list-group-item-light  text-left">
+				<a th:href="@{/orders}" class="list-group-item list-group-item-action list-group-item-light  text-left">
 					<span class="pull-left"><strong>Orders</strong></span>
 				</a>
 			</li>

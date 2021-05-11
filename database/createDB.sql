@@ -65,6 +65,30 @@ CREATE TABLE `Products` (
 	PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `Orders` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`user_id` INT NOT NULL,
+	`receiver_name` VARCHAR(255) NOT NULL,
+	`receiver_address` VARCHAR(255) NOT NULL,
+	`receiver_phone` VARCHAR(255) NOT NULL,
+	`status` ENUM('PENDING','ACCEPTED','REJECTED','CANCELED') NOT NULL DEFAULT 'PENDING',
+    `price_total` decimal(15,0) NOT NULL,
+    `quantity_total` INT NOT NULL,
+    `create_time` timestamp default current_timestamp,
+    `update_time` timestamp default current_timestamp on update current_timestamp,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `OrderItems` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`order_id` INT NOT NULL,
+	`product_id` INT NOT NULL,
+	`quantity` INT NOT NULL,
+	`price_unit` decimal(15,0) NOT NULL,
+	`price_total` decimal(15,0) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
 ALTER TABLE `UserRoles` ADD CONSTRAINT `UserRoles_fk0` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
 
 ALTER TABLE `UserRoles` ADD CONSTRAINT `UserRoles_fk1` FOREIGN KEY (`role_id`) REFERENCES `Roles`(`id`);
@@ -76,3 +100,9 @@ ALTER TABLE `Categories` ADD CONSTRAINT `Categories_fk0` FOREIGN KEY (`parent_id
 ALTER TABLE `Rates` ADD CONSTRAINT `Rates_fk0` FOREIGN KEY (`product_id`) REFERENCES `Products`(`id`);
 
 ALTER TABLE `Rates` ADD CONSTRAINT `Rates_fk1` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
+
+ALTER TABLE `Orders` ADD CONSTRAINT `Orders_fk0` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
+
+ALTER TABLE `OrderItems` ADD CONSTRAINT `OrderItems_fk0` FOREIGN KEY (`order_id`) REFERENCES `Orders`(`id`);
+
+ALTER TABLE `OrderItems` ADD CONSTRAINT `OrderItems_fk1` FOREIGN KEY (`product_id`) REFERENCES `Products`(`id`);

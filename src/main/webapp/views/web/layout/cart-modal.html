@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <!--Cart modal-->
+    <div th:fragment="cart-modal" class="container fixed-bottom ">
+        <div th:if="${session.cart != null}" class="alert alert-light alert-dismissible fade show border border-light "
+          role="alert">
+          <div th:with=" item = ${session.cart.lastedItem}" class="row">
+            <div class="col-3 text-success">
+              <i class="fas fa-check fa-2x"></i>
+              <img class="align-self-center mx-2 border border-success" width="50"
+                th:src="@{'/assets/images/'+${item.image}}" alt="item img">
+              <span class="mt-0 h5">Added to Cart</span>
+            </div>
+            <div class="col-9 d-flex justify-content-between align-items-center">
+              <div>
+                <span class="h5">Cart subtotal</span>
+                <span th:text="${'('+ session.cart.itemQuantity+' items):'}"></span>
+                <p class="text-danger" th:text="${session.cart.formatCartPrice}"></p>
+              </div>
+              <div>   
+                <a th:href="@{/cart/detail}" class="btn btn-success" role="button" type="button">Cart detail<i
+                    class="ml-2 far fa-question-circle"></i></a>
+                <a th:href="@{/orders/ship-new}" class="btn btn-danger"  role="button" type="button">Proceed to checkout<i class="ml-2 fas fa-shopping-basket"></i></a>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <!--Cart modal-->
+</body>
+
+</html>
