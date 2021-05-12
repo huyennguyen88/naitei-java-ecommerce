@@ -3,7 +3,6 @@ package com.triplet.service.impl;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import com.triplet.bean.Item;
@@ -79,17 +78,61 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 				orderItem.setQuantity(i.getQuantity());
 
 				getOrderItemDAO().saveOrUpdate(orderItem);
-
-				// Update product quantity
-				Product product = getProductDAO().findById(i.getId());
-				int newQuantity = product.getQuantity() - i.getQuantity();
-				product.setQuantity(newQuantity);
-				getProductDAO().saveOrUpdate(product);
 			}
 			return true;
 		} catch (Exception e) {
 			logger.error(e);
 			throw (e);
 		}
+	}
+
+	@Override
+	public List<Order> loadByStatus(Status status) {
+		try {
+			return getOrderDAO().loadByStatus(status);
+		} catch (Exception e) {
+			logger.error(e);
+			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public List<Order> loadOrders() {
+		try {
+			return getOrderDAO().loadOrders();
+		} catch (Exception e) {
+			logger.error(e);
+			return Collections.emptyList();
+		}
+	}
+
+	@Override
+	public boolean updateStatus(int orderId, int statusIndex) {
+		try {
+			Status newStatus = Status.values()[statusIndex];
+			Order order = getOrderDAO().find(orderId, true);
+			if (order.getStatus() == Status.PENDING) {
+				order.setStatus(newStatus);
+
+				if (newStatus == Status.ACCEPTED) {
+					// Update product quantity
+					List<OrderItem> items = order.getOrderItems();
+					for (OrderItem i : items) {
+						// Update product quantity
+						Product product = i.getProduct();
+						int newQuantity = product.getQuantity() - i.getQuantity();
+						product.setQuantity(newQuantity);
+						getProductDAO().saveOrUpdate(product);
+					}
+				}
+				saveOrUpdate(order);
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			logger.error(e);
+			throw (e);
+		}
+
 	}
 }
