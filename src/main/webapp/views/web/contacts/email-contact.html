@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Feedback email</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+    <div>
+        <h3>Customer's Information</h3>
+        <div>
+            <span style="font-weight: bold;">Id: </span>
+            <span th:text="${id}" style="margin-left: 10px;"></span>
+        </div>
+        <div>
+            <span style="font-weight: bold;">Username: </span>
+            <span th:text="${username}" style="margin-left: 10px;"></span>
+        </div>
+        <div>
+            <span style="font-weight: bold;">Full name: </span>
+            <span th:text="${fullname}" style="margin-left: 10px;"></span>
+        </div>
+        <div>
+            <span style="font-weight: bold;">Address: </span>
+            <span th:text="${address}" style="margin-left: 10px;"></span>
+        </div>
+        <div>
+            <span style="font-weight: bold;">Phone: </span>
+            <span th:text="${phone}" style="margin-left: 10px;"></span>
+        </div>
+        <div>
+            <span style="font-weight: bold;">Email: </span>
+            <span th:text="${email}" style="margin-left: 10px;"></span>
+        </div>
+
+    </div>
+    <div>
+        <h3>Feedback content</h3>
+            <p th:text="${content}"></p>
+    </div>
+
+</body>
+</html>

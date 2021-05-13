@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.triplet.bean.Feedback;
 import com.triplet.bean.UserInfo;
 import com.triplet.model.User;
 import com.triplet.service.impl.MyUser;
@@ -28,6 +30,9 @@ public class UserController extends BaseController {
 
 	@Value("${msg_error_update}")
 	private String msg_error_update;
+
+	@Value("${msg_success_mail}")
+	private String msg_success_mail;
 
 	@GetMapping("/{id}")
 	public String show(@PathVariable("id") int id, Model model, HttpServletRequest request,
@@ -79,5 +84,20 @@ public class UserController extends BaseController {
 		final Integer rowId = Integer.valueOf(req.getParameter("removeAddress"));
 		userInfo.getAddresses().remove(rowId.intValue());
 		return "views/web/users/user";
+	}
+
+	@PostMapping("/{id}/send-feedback")
+	public String sendFeedback(@ModelAttribute("feedback") Feedback feedback,
+			final RedirectAttributes redirectAttributes) {
+
+		MyUser currentUser = loadCurrentUser();
+		User user = userService.findById(currentUser.getId());
+		feedback.setUser(user);
+
+		emailService.sendFeedbackMail(feedback);
+
+		String typeCss = "success";
+		String message = msg_success_mail;
+		return handleRedirect(redirectAttributes, typeCss, message, "/contact");
 	}
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.triplet.bean.Feedback;
 import com.triplet.bean.UserInfo;
 import com.triplet.model.Category;
 import com.triplet.model.User;
@@ -115,8 +116,10 @@ public class HomeController extends BaseController {
 	}
 
 	@GetMapping("/contact")
-	public String showContact() {
-		return "views/web/contact/contact";
+	public String showContact(Model model) {
+		Feedback feedback = new Feedback();
+		model.addAttribute("feedback", feedback);
+		return "views/web/contacts/contact";
 	}
 
 }
