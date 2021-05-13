@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- Using SMTP -->
+	<bean id="emailService"
+		class="com.triplet.service.impl.EmailServiceImpl">
+		<property name="mailSender" ref="JavaMailSender" />
+		<property name="templateEngine" ref="templateEngine" />
+	</bean>
+
+	<bean id="JavaMailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- SMTP settings -->
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="25" />
+		<property name="username" value="${email.username}" />
+		<property name="password" value="${email.password}" />
+
+		<property name="javaMailProperties">
+			<!-- additional properties specific to JavaMail -->
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+		<property name="cacheable" value="false" />
+	</bean>
+
+</beans>

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import com.triplet.dao.CategoryDAO;
 import com.triplet.dao.OrderDAO;
@@ -35,6 +37,12 @@ public class BaseServiceImpl {
 
 	@Autowired
 	private OrderItemDAO orderItemDAO;
+
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	private SpringTemplateEngine templateEngine;
 
 	public UserDAO getUserDAO() {
 		return userDAO;
@@ -84,6 +92,22 @@ public class BaseServiceImpl {
 		this.orderItemDAO = orderItemDAO;
 	}
 
+	public JavaMailSender getMailSender() {
+		return mailSender;
+	}
+
+	public void setMailSender(JavaMailSender mailSender) {
+		this.mailSender = mailSender;
+	}
+	
+	public SpringTemplateEngine getTemplateEngine() {
+		return templateEngine;
+	}
+
+	public void setTemplateEngine(SpringTemplateEngine templateEngine) {
+		this.templateEngine = templateEngine;
+	}
+		
 	public static <T> Page<T> findPaginationBase(Pageable pageable, List<T> objects) {
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();
@@ -96,5 +120,7 @@ public class BaseServiceImpl {
 		Page<T> objectPage = new PageImpl<T>(subObjects, PageRequest.of(currentPage, pageSize), objects.size());
 		return objectPage;
 	}
+
+
 
 }

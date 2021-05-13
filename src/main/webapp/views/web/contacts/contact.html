@@ -22,20 +22,17 @@
 							<!-- contact form grid -->
 							<div class="contact-top1">
 								<h5 class="text-dark mb-4 text-capitalize">send us a note</h5>
-								<form action="#" method="get" class="f-color">
+								<form th:action="@{/users/{id}/send-feedback}" th:object="${feedback}" method="post" class="f-color">
 									<div class="form-group">
-										<label for="contactusername">Name</label>
-										<input type="text" class="form-control" id="contactusername" required>
-									</div>
-									<div class="form-group">
-										<label for="contactemail">Email</label>
-										<input type="email" class="form-control" id="contactemail" required>
-									</div>
+										<label>Subject</label>
+										<input th:field="*{subject}" class="form-control" name="subject" required ></input>
+									</div>								
 									<div class="form-group">
 										<label for="contactcomment">Your Message</label>
-										<textarea class="form-control" rows="5" id="contactcomment" required></textarea>
+										<textarea th:field="*{content}" class="form-control" rows="5" id="contactcomment" name="message" required ></textarea>
 									</div>
-									<button type="submit" class="btn btn-info btn-block">Submit</button>
+									<a sec:authorize="!isAuthenticated()" th:href="@{/login}" type="button" role="button" class="btn btn-info btn-block">Login to send<i class="fas fa-arrow-right ml-2"></i></a>
+									<button sec:authorize="isAuthenticated()" type="submit" class="btn btn-info btn-block">Submit<i class="far fa-check-circle ml-2"></i></button>
 								</form>
 							</div>
 							<!--  //contact form grid ends here -->
