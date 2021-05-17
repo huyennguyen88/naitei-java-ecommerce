@@ -1,6 +1,8 @@
 package com.triplet.service.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -45,9 +47,25 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	public List<Category> getRoots() {
 		try {
 			return getCategoryDAO().getRoots();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return null;
 		}
-		
+
+	}
+
+	@Override
+	public List<Category> getLeafNodes() {
+		List<Category> roots = getRoots();
+		List<Category> categories = new ArrayList<Category>();
+		try {
+			for (Category root : roots) {
+				List<Category> leaves = root.getAllLeafNodes();
+				categories.addAll(leaves);
+			}
+			return categories;
+		} catch (Exception e) {
+			logger.error(e);
+		}
+		return Collections.emptyList();
 	}
 }

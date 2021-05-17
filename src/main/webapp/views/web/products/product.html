@@ -71,9 +71,7 @@
 							</div>
 							<div class="desc_single">
 								<h5 class="sp_title">Description</h5>
-								<ul>
-									<li th:each="description : ${product.descriptions}" th:text="${description}"></li>
-								</ul>
+								<span style="white-space: pre-wrap;" th:text="${product.description}"></span>
 							</div>
 							<div class="desc_single">
 								<h5 class="sp_title">Quantity</h5>
