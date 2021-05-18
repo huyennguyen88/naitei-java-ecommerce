@@ -125,13 +125,14 @@ public class UserInfo {
 		user.setPhone(this.getPhone());
 
 		// Addresses's List to String
-		StringBuilder strbld = new StringBuilder();
-		for (String address : this.addresses) {
-			strbld.append(address);
-			strbld.append('/');
+		if (this.addresses != null) {
+			StringBuilder strbld = new StringBuilder();
+			for (String address : this.addresses) {
+				strbld.append(address);
+				strbld.append('/');
+			}
+			user.setAddress(strbld.toString());
 		}
-		user.setAddress(strbld.toString());
-
 		return user;
 	}
 }

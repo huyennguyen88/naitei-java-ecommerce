@@ -2,6 +2,7 @@ package com.triplet.dao;
 
 import java.util.List;
 
+import com.triplet.model.Role;
 import com.triplet.model.User;
 
 public interface UserDAO extends BaseDAO<Integer, User> {
@@ -16,4 +17,5 @@ public interface UserDAO extends BaseDAO<Integer, User> {
 
 	boolean saveBatch(List<User> users);
 
+	List<User> loadUsers(Role role);
 }
