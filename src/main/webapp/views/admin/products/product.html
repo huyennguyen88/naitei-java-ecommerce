@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+    layout:decorate="~{views/admin/layout/base-layout.html}">
+
+<head>
+    <title>productInfo detail</title>
+</head>
+
+<body id="page-top">
+    <section layout:fragment="content">
+        <div th:if="${productInfo!=null}" class="card shadow mb-4">
+            <div class="card-header py-3">
+                <span th:text="${'productInfo  #PD00'+ productInfo.id}"></span>
+                <span class="mx-2">|</span>
+                <span th:if="${productInfo.delete_time != null}" class="badge badge-pill badge-secondary">Deleted
+                </span>
+                <span th:if="${productInfo.delete_time == null && productInfo.quantity == 0}"
+                    class="badge badge-pill badge-danger">Out stock
+                </span>
+                <span th:if="${productInfo.delete_time == null && productInfo.quantity > 0}"
+                    class="badge badge-pill badge-success">In stock
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!--Image-->
+                    <div class="col-4 p-3">
+                        <div th:unless="${productInfo.images.empty}" id="carouselExampleControls" class="carousel slide"
+                            data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div th:each="image, iter : ${productInfo.images}"
+                                    th:classappend="${iter.index==0}?active" class="carousel-item">
+                                    <img th:src="@{'/assets/images/'+${image}}" class="d-block w-100" alt="Image slide">
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" th:href="@{#carouselExampleControls}" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" th:href="@{#carouselExampleControls}" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!--//Image-->
+
+                    <!--Content-->
+                    <div class="col-8 p-3">
+                        <p class="h5 font-weight-bold" th:text="${productInfo.name}"></p>
+                        <p th:text="${productInfo.formatPrice}" class="h5 text-danger"></p>
+                        <div>
+                            <span class="font-weight-bold pr-2">Created at:</span>
+                            <span th:text="${productInfo.create_time}"></span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold pr-2">Updated at:</span>
+                            <span th:text="${productInfo.update_time}"></span>
+                        </div>
+                        <div th:if="${productInfo.delete_time!=nuLL}">
+                            <span class="font-weight-bold pr-2">Deleted at:</span>
+                            <span th:text="${productInfo.update_time}"></span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold pr-2">Quantity:</span>
+                            <span th:text="${productInfo.quantity}"></span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold pr-2">Category:</span>
+                            <span th:text="${productInfo.category.name}"></span>
+                        </div>
+                        <div>
+                            <p class="font-weight-bold">Description:</p>
+                            <span style="white-space: pre-wrap;" th:text="${productInfo.description}"></span>
+                        </div>
+                    </div>
+                    <!--//Content-->
+                </div>
+                <hr>
+                <div class="row p-3 d-flex justify-content-end">
+                    <a th:if="${productInfo.delete_time==null}" class="btn btn-outline-danger "
+                        th:href="@{/admin/products/{id}/toggle-status(id=${productInfo.id})}" role="button">Delete
+                        <i class="fas fa-trash-alt ml-2"></i>
+                    </a>
+                    <a th:if="${productInfo.delete_time!=null}" class="btn btn-outline-success "
+                        th:href="@{/admin/products/{id}/toggle-status(id=${productInfo.id})}" role="button">Active
+                        <i class="fas fa-undo ml-2"></i>
+                    </a>
+                    <a class="btn btn-outline-warning mx-2"
+                        th:href="@{/admin/products/{id}/edit(id=${productInfo.id})}" role="button">Edit
+                        <i class="fas fa-edit ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -8,4 +8,6 @@ public interface CategoryService extends BaseService<Integer, Category> {
 
 	List<Category> getRoots();
 
+	List<Category> getLeafNodes();
+
 }
