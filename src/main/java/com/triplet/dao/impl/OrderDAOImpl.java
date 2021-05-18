@@ -1,5 +1,6 @@
 package com.triplet.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -37,4 +38,11 @@ public class OrderDAOImpl extends GenericDAO<Integer, Order> implements OrderDAO
 		return (List<Order>) getSession().createQuery("FROM Order where status =: status ")
 				.setParameter("status", status).getResultList();
 	}
+
+	@Override
+	public BigDecimal getTotalRevenue() {
+		return (BigDecimal) getSession().createQuery("select SUM(price_total) from Order where status =: status ")
+				.setParameter("status", Status.ACCEPTED).uniqueResult();
+	}
+
 }

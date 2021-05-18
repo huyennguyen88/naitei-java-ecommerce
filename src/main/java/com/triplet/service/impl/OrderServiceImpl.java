@@ -1,6 +1,7 @@
 package com.triplet.service.impl;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import com.triplet.model.Order.Status;
 import com.triplet.model.OrderItem;
 import com.triplet.model.Product;
 import com.triplet.service.OrderService;
+import com.triplet.utils.FormatUtils;
 
 public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 
@@ -134,5 +136,21 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			throw (e);
 		}
 
+	}
+
+	@Override
+	public String getTotalRevenue() {
+		try {
+			BigDecimal totalRevenue = getOrderDAO().getTotalRevenue();
+			if (totalRevenue == null) {
+				totalRevenue = BigDecimal.valueOf(0);
+			}
+			FormatUtils utils = new FormatUtils();
+			String formatTotalRevenue = utils.formatCurrency(totalRevenue);
+			return formatTotalRevenue;
+		} catch (Exception e) {
+			logger.error(e);
+			return null;
+		}
 	}
 }

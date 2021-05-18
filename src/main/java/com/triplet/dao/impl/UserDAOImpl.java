@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import com.triplet.dao.GenericDAO;
 import com.triplet.dao.UserDAO;
+import com.triplet.model.Role;
 import com.triplet.model.User;
 
 public class UserDAOImpl extends GenericDAO<Integer, User> implements UserDAO {
@@ -70,4 +71,11 @@ public class UserDAOImpl extends GenericDAO<Integer, User> implements UserDAO {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<User> loadUsers(Role role) {
+		return getSession().createQuery("from User user join user.roles role where role.code =: code")
+				.setParameter("code", role.getCode())
+				.getResultList();
+	}
 }

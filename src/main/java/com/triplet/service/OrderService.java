@@ -16,4 +16,6 @@ public interface OrderService extends BaseService<Integer, Order> {
 	List<Order> loadByStatus(Status status);
 
 	boolean updateStatus(int orderId, int action);
+		
+	String getTotalRevenue();
 }

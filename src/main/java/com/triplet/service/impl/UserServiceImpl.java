@@ -2,6 +2,7 @@ package com.triplet.service.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -24,7 +25,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public List<User> loadUsers() {
 		try {
 			return getUserDAO().loadUsers();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 			return null;
 		}
@@ -34,7 +35,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public User findById(Serializable key) {
 		try {
 			return getUserDAO().findById(key);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 			return null;
 		}
@@ -44,7 +45,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		try {
 			return getUserDAO().findByUsername(username);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 			return null;
 		}
@@ -105,7 +106,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			List<Role> roles = new ArrayList<>();
 			roles.add(role);
 			user.setRoles(roles);
-			if(user.getPassword()!=null) {
+			if (user.getPassword() != null) {
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
 			}
 			getUserDAO().saveOrUpdate(user);
@@ -142,9 +143,19 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 				users.add(user);
 			}
 			return users;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logger.error(e);
 			return null;
+		}
+	}
+
+	@Override
+	public List<User> loadUsers(Role role) {
+		try {
+			return getUserDAO().loadUsers(role);
+		} catch (Exception e) {
+			logger.error(e);
+			return Collections.emptyList();
 		}
 	}
 }
